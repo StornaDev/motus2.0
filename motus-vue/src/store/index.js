@@ -59,9 +59,13 @@ const store = createStore({
 
       console.log("voici les user infos : "+ JSON.stringify(state.userInfos));
     },
-    setMode: function(state, gameInfos){
-      state.gameInfos.nbrlettre = gameInfos.nbrlettre;
+    setGameInfos: function(state, gameInfos){
+
+      state.gameInfos.nbrLettre = gameInfos.nbrlettre;
+      
       state.gameInfos.mode = gameInfos.mode;
+      console.log(this.gameInfos);
+
 
     }
   },
@@ -110,10 +114,9 @@ const store = createStore({
       });
       
     },
-   moveToGame:({commit}, gameInfos)=>{
-     commit('setGameInfos', gameInfos)
-     console.log(gameInfos);
-   }
+    moveToGame:({commit}, gameInfos)=>{
+      commit('setGameInfos', gameInfos);
+    }
   }
 })
 

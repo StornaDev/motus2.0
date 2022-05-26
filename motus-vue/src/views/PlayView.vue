@@ -37,18 +37,23 @@ export default {
         
         switchToSolo: function(){
             this.mode = 'solo' 
-        },switchToMulti: function(){
+        },
+        
+        switchToMulti: function(){
             this.mode = 'multi'
-        },envoyer: function(){
+        },
+        
+        envoyer: function(){
             const self = this;
-            this.$store.dispatch({
+            this.$store.dispatch("moveToGame",{
                 mode: this.mode,
                 nbrLettre: this.nbrLettre
             }).then(function (){
-            self.$router.push('/play')
-            }).catch(function (error){
-                console.log(error);
-            });
+                self.$router.push('/game');
+            }).catch(function (err){
+                console.log(err);
+            })              
+
         }
     }
     
