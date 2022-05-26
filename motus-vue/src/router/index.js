@@ -1,30 +1,36 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-import Home from "@/views/Home.vue";
-import Profil from "@/views/Porfil.vue";
-import Game from "@/views/Game.vue";
-import Register from "@/views/Register.vue";
+import HomeView from "@/views/HomeView.vue";
+import ProfilView from "@/views/ProfilView.vue";
+import GameView from "@/views/GameView.vue";
+import RegisterView from "@/views/RegisterView.vue";
+import PlayView from "@/views/PlayView.vue";
 
 const routes = [
     {
         path: '/',
         name: "Home",
-        component: Home
+        component: HomeView
+    },
+    {
+        path: '/play',
+        name: "Play",
+        component: PlayView
     },
     {
         path: '/profil',
         name: "Profil",
-        component: Profil
+        component: ProfilView
     },
     {
         path: '/register',
         name: "Register",
-        component: Register
+        component: RegisterView
     },
     {
         path: '/game',
         name: "Game",
-        component: Game
+        component: GameView
     },
 
 ]
