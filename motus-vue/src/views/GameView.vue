@@ -1,8 +1,11 @@
 <template>
     <div id="container">
         <div id="content">
-            {{nbrLettre}}
-            {{mode}}
+            <p>{{nbrLettre}}</p>
+            <p>{{mode}}</p>
+            <Grid 
+             v-bind:mode="mode"
+             v-bind:nbrLettre="nbrLettre"/>
         </div>
         
 
@@ -10,18 +13,22 @@
 </template>
 
 <script>
+import Grid from '../components/TableGrid.vue'
 
-//  import { mapState } from 'vuex'
 
 
 export default {
+
 
     data:function(){
            return{
                 nbrLettre : '',
                 mode : ''               
            }
-       },
+    },
+    components: {
+        Grid
+    },
 
     mounted : function() {
 
@@ -34,7 +41,9 @@ export default {
         this.nbrLettre = this.$store.state.gameInfos.nbrLettre;
         this.mode = this.$store.state.gameInfos.mode;
 
-        console.log(this.$store.state.gameInfos);
+        console.log(this.nbrLettre);
+        console.log(this.mode);
+
 
         // appeller la bdd et récupérer un mot
     
@@ -52,6 +61,10 @@ export default {
         height: 100%;
         font-family: "Montserrat", sans-serif;
 
+    }
+
+    #content{
+        margin-top: 20vh;
     }
 
     

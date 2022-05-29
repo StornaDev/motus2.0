@@ -22,16 +22,13 @@
 <script>
 
 
-
-
 export default {
-
     data:function(){
            return{
                mode:'solo',
                nbrLettre:'6'
            }
-       },
+    },
 
     methods:{
         
@@ -49,6 +46,7 @@ export default {
                 mode: this.mode,
                 nbrLettre: this.nbrLettre
             }).then(function (){
+                // console.log('affichage du contenu du store dans playview : ' +this.$store.state.gameInfo);
                 self.$router.push('/game');
             }).catch(function (err){
                 console.log(err);

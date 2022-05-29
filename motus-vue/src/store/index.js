@@ -56,17 +56,13 @@ const store = createStore({
       state.userInfos.email = userInfos.email;
       state.userInfos.name = userInfos.name;
       state.userInfos.avatar = userInfos.avatar;
-
-      console.log("voici les user infos : "+ JSON.stringify(state.userInfos));
     },
     setGameInfos: function(state, gameInfos){
-
-      state.gameInfos.nbrLettre = gameInfos.nbrlettre;
-      
+      state.gameInfos.nbrLettre = gameInfos.nbrLettre;
       state.gameInfos.mode = gameInfos.mode;
-      console.log(this.gameInfos);
+      
 
-
+      
     }
   },
   actions:{
