@@ -41,12 +41,13 @@ export default {
                 var tab = document.createElement("table");
                 var tabBody = document.createElement("tbody");
 
+                // 6 : number of rows
                 for (var i = 0; i < 6; i++) {
                     let tab = new Array();
                     this.grille.push(tab)
                 
                     var row = document.createElement("tr");
-
+                
                 for (var j = 0; j < this.nbrLettre; j++) {
                     
                     var cell = document.createElement("td");
@@ -68,9 +69,11 @@ export default {
             this.refreshGrid()
             this.currentColumn++;
         },
-        refreshGrid: function() { 
-            this.container.children[1].children[0].children[this.currentRow].children[this.currentColumn].innerHTML = this.currentRowContent
-
+        refreshGrid: function() {
+            // If currentColumn is not the last row
+            if (this.currentColumn < this.nbrLettre) { // Replace 6 by the number of columns
+                this.container.children[1].children[0].children[this.currentRow].children[this.currentColumn].innerHTML = this.currentRowContent
+            }
         }
   },  
     mounted : function() {
