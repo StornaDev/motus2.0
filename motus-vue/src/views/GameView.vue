@@ -21,6 +21,9 @@ export default {
            return{
                 nbrLettre : '',
                 mode : '',
+                container:'',
+                grille:[],
+                currentRowContent: '',
                 currentRow:0,
                 currentColumn: 0,           
            }
@@ -32,14 +35,17 @@ export default {
         start: function (child) {
             if (!this.gameStarted) {
                 var container = child.target.parentNode;
+                this.container = child.target.parentNode;
                 child.target.style.display = "none";
 
                 var tab = document.createElement("table");
                 var tabBody = document.createElement("tbody");
 
                 for (var i = 0; i < 6; i++) {
+                    let tab = new Array();
+                    this.grille.push(tab)
                 
-                var row = document.createElement("tr");
+                    var row = document.createElement("tr");
 
                 for (var j = 0; j < this.nbrLettre; j++) {
                     
@@ -49,12 +55,23 @@ export default {
                 }
                 tabBody.appendChild(row);
                 }
-
+                
                 tab.appendChild(tabBody);
                 container.appendChild(tab);
                 this.gameStarted = true;
             }
         },
+        printLetter: function(code){
+            
+            this.currentRowContent= code[3];
+            
+            this.refreshGrid()
+            this.currentColumn++;
+        },
+        refreshGrid: function() { 
+            this.container.children[1].children[0].children[this.currentRow].children[this.currentColumn].innerHTML = this.currentRowContent
+
+        }
   },  
     mounted : function() {
         if(this.$store.state.gameInfos.nbrLettre =='' ||  this.$store.state.gameInfos.mode ==''){
@@ -65,7 +82,9 @@ export default {
         this.mode = this.$store.state.gameInfos.mode;
         
         // appeller la bdd et récupérer un mot
-    
+        window.addEventListener("keypress", e => {
+            this.printLetter(e.code)
+        });
     }
 }
 </script>
