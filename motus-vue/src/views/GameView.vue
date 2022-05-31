@@ -27,7 +27,8 @@ export default {
                 currentRowContent: [],
                 currentRow:0,
                 currentColumn: 0, 
-                mot:'',         
+                mot:'alpaga', 
+
            }
     },
     
@@ -65,8 +66,11 @@ export default {
             }
         },
         printLetter: function(keyPressed){
-            console.log(keyPressed.keyCode);
+        
+            
+            //checking if it is a letter using the keyCode
             if (this.currentColumn < this.nbrLettre && keyPressed.keyCode >=97 && keyPressed.keyCode <=122 ) { // Replace 6 by the number of columns
+                
                 this.currentRowContent[this.currentColumn] = keyPressed.key;
                 this.currentLetter = keyPressed.key.toUpperCase();
                 this.refreshGrid("add");
@@ -74,8 +78,44 @@ export default {
             }
         },
         compareWords: function(){
+            for (let i = 0; i < this.nbrLettre; i++) {
+                
+                let currentCell = this.container.children[1].children[0].children[this.currentRow].children[i];
+                if (this.mot.indexOf(this.currentRowContent[i])) {
+                    console.log(this.currentRowContent[i] +" n'est pas dans le mot");
+                }
+                else if ( this.currentRowContent[i] == this.mot[i] ) {
+                    currentCell.classList.add("caseGood")
+                    console.log(this.currentRowContent[i] +" est a la bonne place");3.
+                }else{
+                    console.log(this.currentRowContent[i] +" est dans le mot mais a la mauvaise place");
+                    let counter =0;
+                    for (let j = 0; j < this.mot.length; j++) {
+                        if (this.mot[j] == this.currentRowContent[i]) {
+                            counter++;
+                        }
+                    }
+
+                    if (counter > 0) {
+                        
+                    }
+ 
+            // si il reste une occurence dans cont on change la couleur de la case de cases
+            if (cont > 0) {
+              var elt = cases[i].firstChild;
+              elt.classList.add("caseYellow")
+              this.caseJaune.push(cases[i].firstChild.innerText)
+            }
+
+
+
+
+                }
+            }
 
         },
+        
+
         refreshGrid: function(action) {
 
             if (action =='add') {
@@ -105,7 +145,7 @@ export default {
             this.printLetter(e)
         });
         window.addEventListener("keyup", e => {
-            console.log(e);
+           
             if (e.key =="Backspace") {
                 this.refreshGrid("remove")
             }else if(e.key =="Enter"){
@@ -116,9 +156,6 @@ export default {
     }
 }
 </script>
-
-
-
 
 
 <style>
@@ -178,5 +215,8 @@ td {
 
     .btn:hover{
         background-color: #7593b1;
+    }
+    .caseGood{
+        background-color: #F20544;
     }
 </style>

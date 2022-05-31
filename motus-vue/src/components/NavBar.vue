@@ -5,7 +5,7 @@
           <li><router-link class="link" to="/register"> S'inscrire</router-link></li>
           <li><router-link class="link" to="/play"> Jouer</router-link></li>
         </ul>
-        <router-link class="link" to="/login"> Se connecter</router-link>
+        <!-- <router-link class="link" to="/login"> Se connecter</router-link> -->
 
       </nav>
       

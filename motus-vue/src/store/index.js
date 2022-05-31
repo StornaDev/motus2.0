@@ -60,9 +60,6 @@ const store = createStore({
     setGameInfos: function(state, gameInfos){
       state.gameInfos.nbrLettre = gameInfos.nbrLettre;
       state.gameInfos.mode = gameInfos.mode;
-      
-
-      
     }
   },
   actions:{
@@ -103,7 +100,6 @@ const store = createStore({
       instance.get('api/infos')
       .then(function (response){
         commit('userInfos', response.data);
-        console.log(response);
       })
       .catch(function (error){
         console.log(error);
