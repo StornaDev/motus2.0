@@ -44,7 +44,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 10%;
+        padding: 20px 5%;
+        padding-right: 10%;
         transition: all 0.3s ease 0s;
         z-index: 3;
         background-color: #2c3e50;
