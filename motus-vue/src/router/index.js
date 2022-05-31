@@ -5,6 +5,7 @@ import ProfilView from "@/views/ProfilView.vue";
 import GameView from "@/views/GameView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import PlayView from "@/views/PlayView.vue";
+import LogInView from "@/views/LogInView.vue";
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
         path: '/game',
         name: "Game",
         component: GameView
+    },
+    {
+        path: '/login',
+        name: "LogIn",
+        component: LogInView
     },
 
 ]
