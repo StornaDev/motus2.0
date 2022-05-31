@@ -4,6 +4,9 @@
 
       <p>Nous vous proposons de jouer avec vos amis, en temps réel ou différé, au jeu du MOTUS revisité.</p>
       <p>Afin de sauvegarder votre progression et de vous faire des amis, vous pouvez vous <router-link class="link" to="/register">créer un compte</router-link>.</p>
+      <p>Sinon, vous pouvez dès à présent <router-link class="link" to="/play">démarrer une partie</router-link>.</p>
+
+      <h2>Démo</h2>
   </body>
 </template>
 
