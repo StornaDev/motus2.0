@@ -2,19 +2,21 @@
 <template>
   <div class="body">
     <NavBar/>
-
+    <FooterBar/>
   </div>
   
 </template>
 
 <script>
 import NavBar from './components/NavBar.vue'
+import FooterBar from './components/FooterBar.vue'
 
 
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    FooterBar
 },
   
   
@@ -34,10 +36,15 @@ export default {
   height: 100%;
 } */
 
+* { 
+  margin-left: 0 !important;
+  margin-right: 0 !important; 
+}
+
 .navbar, .navlinks, ul, li, li a{
     box-sizing: border-box;
     margin: 0;
-    padding: 0;
+    /* padding: 0; */
 }
 
 li, a{
@@ -48,7 +55,7 @@ li, a{
     text-decoration: none;
 }
 
-.navbar{
+/* .navbar{
     position: absolute;
     left: 0;
     top: 0;
@@ -62,14 +69,14 @@ li, a{
     background-color: #2c3e50;
     position: fixed;
     height: 15vh;
-}
+} */
 .navlinks{
     list-style: none;
 }
 
 .navlinks li {
     display: inline-block;
-    padding: 0px 20px;
+    padding: 0px 30px;
     margin-right: 20px;
 }
 
@@ -82,8 +89,6 @@ li, a{
     color : #0088a9;
     
  }
-
-
 
 
 </style>

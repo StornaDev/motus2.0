@@ -22,7 +22,7 @@
 
 
 <style>
-    .navbar, .navlinks, ul, li, li a{
+    .navlinks, ul, li, li a{
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -37,9 +37,9 @@
     }
 
     .navbar{
-        /* position: absolute;
+        position: absolute;
         left: 0;
-        top: 0; */
+        top: 0;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -50,6 +50,7 @@
         z-index: 3;
         background-color: #2c3e50;
         position: fixed;
+        height: 15vh;
 
     }
     .navlinks{
