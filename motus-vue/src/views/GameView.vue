@@ -23,14 +23,14 @@ export default {
                 mode : '',
                 container:'',
                 grille:[],
-                currentRowContent: '',
+                currentLetter: '',
+                currentRowContent: [],
                 currentRow:0,
-                currentColumn: 0,           
+                currentColumn: 0, 
+                mot:'',         
            }
     },
-    // components: {
-    //     Grid
-    // },
+    
     methods:{
         start: function (child) {
             if (!this.gameStarted) {
@@ -56,24 +56,40 @@ export default {
                 }
                 tabBody.appendChild(row);
                 }
-                
+                for (let j = 0; j < this.nbrLettre; j++) {
+                    this.currentRowContent.push('');
+                }
                 tab.appendChild(tabBody);
                 container.appendChild(tab);
                 this.gameStarted = true;
             }
         },
-        printLetter: function(code){
-            
-            this.currentRowContent= code[3];
-            
-            this.refreshGrid()
-            this.currentColumn++;
-        },
-        refreshGrid: function() {
-            // If currentColumn is not the last row
-            if (this.currentColumn < this.nbrLettre) { // Replace 6 by the number of columns
-                this.container.children[1].children[0].children[this.currentRow].children[this.currentColumn].innerHTML = this.currentRowContent
+        printLetter: function(keyPressed){
+            console.log(keyPressed.keyCode);
+            if (this.currentColumn < this.nbrLettre && keyPressed.keyCode >=97 && keyPressed.keyCode <=122 ) { // Replace 6 by the number of columns
+                this.currentRowContent[this.currentColumn] = keyPressed.key;
+                this.currentLetter = keyPressed.key.toUpperCase();
+                this.refreshGrid("add");
+                this.currentColumn++;
             }
+        },
+        compareWords: function(){
+
+        },
+        refreshGrid: function(action) {
+
+            if (action =='add') {
+                // If currentColumn is not the last row
+                    this.container.children[1].children[0].children[this.currentRow].children[this.currentColumn].innerHTML = this.currentLetter
+            }
+            else{
+                if (this.currentColumn >=1) {
+                    this.container.children[1].children[0].children[this.currentRow].children[this.currentColumn-1].innerHTML = "";
+                    this.currentColumn=this.currentColumn-1
+                }
+                
+            }
+            
         }
   },  
     mounted : function() {
@@ -86,7 +102,16 @@ export default {
         
         // appeller la bdd et récupérer un mot
         window.addEventListener("keypress", e => {
-            this.printLetter(e.code)
+            this.printLetter(e)
+        });
+        window.addEventListener("keyup", e => {
+            console.log(e);
+            if (e.key =="Backspace") {
+                this.refreshGrid("remove")
+            }else if(e.key =="Enter"){
+                this.compareWords();
+            }
+            
         });
     }
 }
@@ -122,8 +147,8 @@ table {
 td {
     border: 1px solid black;
     padding: 2px;
-    width: 3.5vw;
-    height: 3.5vw;
+    width: 4vw;
+    height: 4vw;
     text-align: center;
     font-family: "Poppins", sans-serif;
     border-style: solid;
