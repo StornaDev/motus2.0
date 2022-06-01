@@ -86,6 +86,20 @@ export default {
       let rows = document.getElementsByClassName("row");
       let columns = rows[this.currentRow].childNodes;
       for (let i = 0; i < this.word.length; i++) {
+        let cont = 0;
+        let niemeOccurence = 0;
+        for (let j = 0; j < this.word.length; j++) {
+          console.log(this.word[j]);
+          // on compte le nombre d'occurence de la lettre dans le mot
+          if (this.word[j].toUpperCase() == proposition[i]) {
+            cont++;
+            cont;
+          }
+
+          //On compte la nieme occurence de la lettre
+        }
+
+        console.log("Nombre de lettres " + cont);
         if (proposition[i] == this.word[i].toUpperCase()) {
           columns[i].style.backgroundColor = "#2a9d8f";
           columns[i].style.color = "white";
