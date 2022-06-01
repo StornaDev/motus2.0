@@ -70,7 +70,7 @@ export default {
             
             //checking if it is a letter using the keyCode
             if (this.currentColumn < this.nbrLettre && keyPressed.keyCode >=97 && keyPressed.keyCode <=122 ) { // Replace 6 by the number of columns
-                
+               
                 this.currentRowContent[this.currentColumn] = keyPressed.key;
                 this.currentLetter = keyPressed.key.toUpperCase();
                 this.refreshGrid("add");
@@ -81,37 +81,55 @@ export default {
             for (let i = 0; i < this.nbrLettre; i++) {
                 
                 let currentCell = this.container.children[1].children[0].children[this.currentRow].children[i];
-                if (this.mot.indexOf(this.currentRowContent[i])) {
+
+                if (this.mot.indexOf(this.currentRowContent[i])==-1) {
                     console.log(this.currentRowContent[i] +" n'est pas dans le mot");
                 }
                 else if ( this.currentRowContent[i] == this.mot[i] ) {
+
                     currentCell.classList.add("caseGood")
-                    console.log(this.currentRowContent[i] +" est a la bonne place");3.
+                    
                 }else{
-                    console.log(this.currentRowContent[i] +" est dans le mot mais a la mauvaise place");
+                    
+                    let currentLetter = this.currentRowContent[i]
                     let counter =0;
-                    for (let j = 0; j < this.mot.length; j++) {
-                        if (this.mot[j] == this.currentRowContent[i]) {
+
+                    for (let j = 0; j < this.mot.length; j++) { // on compte le nbr d'occurence de la lettre dans le mot
+                        if (this.mot[j] == currentLetter) {
                             counter++;
                         }
                     }
 
-                    if (counter > 0) {
+                    console.log(counter);
+
+                    //on retire 1 a cont pour chaque occurence de la lettre avant la position de la case qu'on compare
+                    for (let k = 0; k < this.currentColumn-1; k++) {
+                        if (this.currentRowContent[k] == currentLetter) {
+                            counter = counter - 1;
+                        }
+                    }   
+
+                    if (this.currentColumn-this.nbrlettre >0) {
+                        for (let k =this.currentColumn+1; k < this.nbrlettre; k++) {
+                            if (this.currentRowContent[k] == currentLetter) {
+                                counter = counter - 1;
+                            }
+                         }   
                         
                     }
- 
-            // si il reste une occurence dans cont on change la couleur de la case de cases
-            if (cont > 0) {
-              var elt = cases[i].firstChild;
-              elt.classList.add("caseYellow")
-              this.caseJaune.push(cases[i].firstChild.innerText)
-            }
+                    
 
-
-
+                
+                    // si il reste une occurence dans cont on change la couleur de la case de cases
+                    if (counter > 0) {
+                        currentCell.classList.add("caseYellow")
+                    }            
 
                 }
             }
+            this.currentColumn = 0;
+            this.currentRow = this.currentRow+1;
+            this.currentRowContent = [];
 
         },
         
@@ -218,5 +236,18 @@ td {
     }
     .caseGood{
         background-color: #F20544;
+    }
+    .caseYellow{
+        background : #ffd500;
+        border-radius : 50%;
+        height : 3.8vw;
+        width : 3.8vw;
+        align-items: center;
+        display : flex;
+        align-items : center;
+        justify-content : center;
+        text-align : center;
+        line-height : 65px
+
     }
 </style>
