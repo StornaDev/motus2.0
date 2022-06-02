@@ -8,6 +8,7 @@ app.use(cors());
 
 //Import Routes
 const wordsRoute = require('./routes/words');
+const authRoute = require('./routes/auth');
 
 dotenv.config();
 
@@ -23,6 +24,6 @@ app.use(express.json());
 
 //Route Middlewares
 app.use('/api/words', wordsRoute);
-
+app.use('/api/user', authRoute);
 
 app.listen(3000, () => console.log("Server up and running"));
