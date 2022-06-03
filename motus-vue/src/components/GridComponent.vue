@@ -61,13 +61,13 @@ export default {
     validateWord() {
       //Permet de valider un mot
       let proposedWord = this.getProposedWord(); //On récupère la proposition
-      proposedWord;
       let rows = document.getElementsByClassName("row");
       if (this.currentColumn == this.gameInfos.nbrLettre) {
-        this.testWord(proposedWord); //Et on test la proposition
-        this.currentColumn = 0;
-        this.currentRow++;
-        rows[this.currentRow].childNodes[this.currentColumn].innerText =
+        //Si il y a le bon nombre de lettres
+        this.testWord(proposedWord); //Alors on test la proposition
+        this.currentColumn = 0; //On remet la colonne à zéro
+        this.currentRow++; //On passe à la ligne suivante
+        rows[this.currentRow].childNodes[this.currentColumn].innerText = //Et la premiere case de la ligne suivante est remplie avec la première lettre
           rows[this.currentRow - 1].childNodes[this.currentColumn].innerText;
       }
     },
@@ -81,25 +81,43 @@ export default {
       }
       return word;
     },
-    testWord(proposition) {
+    testWord: function (proposition) {
+      console.log("Propal : " + proposition);
       //Permet de tester un mot
       let rows = document.getElementsByClassName("row");
       let columns = rows[this.currentRow].childNodes;
       for (let i = 0; i < this.word.length; i++) {
         let cont = 0;
         let niemeOccurence = 0;
+        // let niemeOccurence = 0;
         for (let j = 0; j < this.word.length; j++) {
-          console.log(this.word[j]);
+          // console.log(this.word[j]);
           // on compte le nombre d'occurence de la lettre dans le mot
           if (this.word[j].toUpperCase() == proposition[i]) {
             cont++;
             cont;
           }
-
-          //On compte la nieme occurence de la lettre
         }
 
-        console.log("Nombre de lettres " + cont);
+        for (let h = 0; h <= i; h++) {
+          // console.log("lettre du mot :" + this.word[h].toUpperCase());
+          // console.log("lettre de la propistion : " + proposition[h]);
+          if (this.word[h].toUpperCase() == proposition[i]) {
+            niemeOccurence++;
+            console.log(
+              "La lettre " +
+                proposition[i] +
+                " en position " +
+                i +
+                " est l'occurence " +
+                niemeOccurence +
+                " du mot " +
+                this.word
+            );
+          }
+        }
+
+        // console.log("Nombre de lettres " + cont);
         if (proposition[i] == this.word[i].toUpperCase()) {
           columns[i].style.backgroundColor = "#2a9d8f";
           columns[i].style.color = "white";
@@ -118,9 +136,7 @@ export default {
       this.printLetter(e);
     });
     window.addEventListener("keyup", (e) => {
-      if (e.key == "Backspace") {
-        this.refreshGrid("remove");
-      } else if (e.key == "Enter") {
+      if (e.key == "Enter") {
         this.validateWord();
       }
     });

@@ -34,7 +34,15 @@ export default {
   components: {
     GridComponent,
   },
-
+  mounted() {
+    if (
+      this.$store.state.gameInfos.nbrLettre == "" ||
+      this.$store.state.gameInfos.mode == ""
+    ) {
+      this.$router.push("/play");
+      return;
+    }
+  },
   methods: {
     start: function () {
       this.gameStarted = true;
@@ -68,6 +76,7 @@ export default {
       //     this.gameStarted = true;
       //   }
     },
+
     //     printLetter: function (keyPressed) {
     //       //checking if it is a letter using the keyCode
     //       if (
