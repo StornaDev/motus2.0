@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import ProfilView from "@/views/ProfilView.vue";
 import GameView from "@/views/GameView.vue";
-import RegisterView from "@/views/RegisterView.vue";
+import DicoView from "@/views/DictionnaireView.vue";
 import PlayView from "@/views/PlayView.vue";
 import LogInView from "@/views/LogInView.vue";
 
@@ -24,9 +24,9 @@ const routes = [
         component: ProfilView
     },
     {
-        path: '/register',
-        name: "Register",
-        component: RegisterView
+        path: '/dico',
+        name: "dictionnaire",
+        component: DicoView
     },
     {
         path: '/game',

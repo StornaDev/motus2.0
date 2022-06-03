@@ -2,10 +2,9 @@
     <nav class="navbar">
         <ul class="navlinks">
           <li><router-link class="link" to="/"> Accueil </router-link></li>
-          <li><router-link class="link" to="/register"> S'inscrire</router-link></li>
           <li><router-link class="link" to="/play"> Jouer</router-link></li>
         </ul>
-        <router-link class="link" to="/login"> Se connecter</router-link>
+        <router-link class="link" to="/login"> <img src="../assets/user.png" alt="user" id="user"></router-link>
 
       </nav>
       
@@ -21,7 +20,7 @@
 
 
 
-<style>
+<style scoped>
     .navbar, .navlinks, ul, li, li a{
         box-sizing: border-box;
         margin: 0;
@@ -69,5 +68,9 @@
     .navlinks li a:hover{
         color : #0088a9;
         
+    }
+
+    #user{
+        width: 50px;
     }
 </style>

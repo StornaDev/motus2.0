@@ -35,7 +35,7 @@ const store = createStore({
     userInfos:{
       name: '',
       email: '',
-      avatar:''
+      role:''
     },
     gameInfos:{
       nbrLettre:'',
@@ -47,7 +47,7 @@ const store = createStore({
       state.status = status;
     },
     logUser: function(state, user){
-      console.log(user);
+      
       instance.defaults.headers.common['authorization'] = user;
       localStorage.setItem('user',JSON.stringify(user));
       state.user = user;
@@ -55,14 +55,23 @@ const store = createStore({
     userInfos: function(state, userInfos){
       state.userInfos.email = userInfos.email;
       state.userInfos.name = userInfos.name;
-      state.userInfos.avatar = userInfos.avatar;
+      state.userInfos.role = userInfos.role;
     },
     setGameInfos: function(state, gameInfos){
       state.gameInfos.nbrLettre = gameInfos.nbrLettre;
-      state.gameInfos.mode = gameInfos.mode;
-      
+      state.gameInfos.mode = gameInfos.mode; 
+    },
+    deconnection:function(state){
+      state.userInfos.email = "";
+      state.userInfos.name = "";
+      state.userInfos.role = "";
 
-      
+      state.user = {
+        id:-1,
+        token: '',
+      };
+
+      instance.defaults.headers.common['authorization'] = "";
     }
   },
   actions:{
@@ -112,6 +121,9 @@ const store = createStore({
     },
     moveToGame:({commit}, gameInfos)=>{
       commit('setGameInfos', gameInfos);
+    },
+    deconnectUser:({commit})=>{
+      commit('deconnection');
     }
   }
 })
