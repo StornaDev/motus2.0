@@ -15,8 +15,8 @@ const registerValidation =  data =>{
         .min(6)
         .required()
         .email(),
-        avatar: Joi.string()
-        .required(),
+        // avatar: Joi.string()
+        // .required(),
         password: Joi.string()
         .min(6)
         .required()

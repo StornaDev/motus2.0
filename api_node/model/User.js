@@ -19,10 +19,10 @@ const userSchema = new mongoose.Schema({
         max:1024,
         min:6
     },
-    avatar:{
-        type:String,
-        max:1024
-    },
+    // avatar:{
+    //     type:String,
+    //     max:1024
+    // },
     role:{
         type:String,
         default:"user"
