@@ -1,10 +1,7 @@
 <template>
   <div>
-    <h1>Mon profil</h1>
     <div id="content">
-
-
-        <div v-if="user.role == 'admin'" id="btnDico"><button> <router-link class="link" to="/dico"> Dictionnaire </router-link></button></div>
+        <div v-if="user.role == 'admin'" id="btnDico"><button class="btn" @click=" this.$router.push('/dico')">  Dictionnaire </button></div>
         <div id="title">
             
             connecté en tant que : <span id="name"> {{user.name}}</span>
@@ -25,7 +22,7 @@ import { mapState } from 'vuex'
 export default{
     name: 'ProfilView',
     mounted: function(){
-        // console.log(this.$store.state.user);
+        console.log(this.$store.state.user);
         if (this.$store.state.user.id == -1) {
             this.$router.push('/login')
             return;
@@ -73,6 +70,7 @@ export default{
     }
     #content{
         text-align: center;
+        margin-top: 20vh;
     }
     #name{
         font-weight: bold;
@@ -87,10 +85,10 @@ export default{
     .btn {
         padding: 10px 40px;
         border-radius: 10px;
-        font-size: 25px;
-        color: #ffffff;
-        text-decoration: none;
         text-align: center;
+        font-size: 25px ;
+        color: #ffffff ;
+        text-decoration: none ;
         background-color: #476f96;
         border :none;
         border-bottom: 5px solid #3b5671;
@@ -108,7 +106,7 @@ export default{
     .btn:hover{
         background-color: #7593b1;
     }
-
+    
 
 
    

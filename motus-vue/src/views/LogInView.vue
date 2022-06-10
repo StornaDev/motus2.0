@@ -1,32 +1,31 @@
 <template>
   <div id="container">
-    <h1 v-if="mode == 'login'">Connexion</h1>
-    <h1 v-else>Inscription</h1>
+    <!-- <h1 v-if="mode == 'login'">Connexion</h1>
+    <h1 v-else>Inscription</h1> -->
     <form>
 
-      <div v-if="mode == 'create'">
+      <div class="input" v-if="mode == 'create'">
         <h2>Pseudo</h2>
         <div class="user-box">
           <input class="input_login" type="text" v-model="pseudo" name="" />
         </div>
       </div>
 
-      <div>
+      <div class="input">
         <h2>Email</h2>
-
         <div class="user-box">
           <input class="input_login" type="email" v-model="email" name="" />
         </div>
       </div>
 
-      <div>
+      <div class="input">
         <h2>Mot de passe</h2>
         <div class="user-box">
           <input class="input_login" type="password" v-model="mdp" name="" />
         </div>
       </div>
 
-      <div v-if="mode == 'create'"> 
+      <div class="input" v-if="mode == 'create'"> 
         <h2>Confirmation</h2>
         <div class="user-box">
           <input class="input_login" type="password" v-model="confirm" name="" />
@@ -47,16 +46,19 @@
       <div v-if="mode == 'create' && status == 'error_create'">
         Adresse email déjà utilisée
       </div>
+      <div v-if="error == 'confirm'">
+        La confirmation doit être identique au mot de passe
+      </div>
 
       <div v-if="mode=='login'">
-          <button id="sub" :class="{'subLoading' :status == 'loading' }" type="submit" @click="sendAction">
+          <button class="btn" :class="{'subLoading' :status == 'loading' }" type="submit" @click="sendAction">
             <span v-if="status == 'loading'"> Connexion en cour ...</span>
             <span v-else>Se connecter</span>
           </button>
       </div>
 
       <div v-else> 
-          <button id="sub" :class="{'subLoading' :status == 'loading' }" type="submit" @click="sendAction">
+          <button class="btn" :class="{'subLoading' :status == 'loading' }" type="submit" @click="sendAction">
             <span v-if="status == 'loading'"> Création en cour ...</span>
             <span v-else>S'inscrire</span>
           </button>
@@ -70,7 +72,7 @@
 import { mapState } from 'vuex'
 
     export default{
-        name: 'LoginView',
+       name: 'LoginView',
        data:function(){
            return{
                mode:'login',
@@ -78,7 +80,8 @@ import { mapState } from 'vuex'
                email:'',
                mdp:'',
                confirm:'',
-               avatar:''
+               avatar:'',
+               error:''
            }
        },
 
@@ -112,9 +115,12 @@ import { mapState } from 'vuex'
                  console.log("Un champ n'a pas été rempli");
                }
              }else{
-                if(!(this.pseudo =='' && this.mdp=='' && this.email=='')){
+                if(!(this.pseudo =='' && this.mdp=='' && this.email=='') && this.mdp == this.confirm){
                   self.createAccount();
                 }else{
+                  if (!this.mdp == this.confirm) {
+                    this.error='confirm';
+                  }
                   console.log("Un champ n'a pas été rempli");
 
                 }
@@ -169,6 +175,7 @@ label {
   text-align: center;
   width: 100%;
   height: 100%;
+  margin-top: 20vh;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -177,42 +184,37 @@ h1 {
   color: rgb(17, 199, 138);
 }
 
-#sub {
-  margin-top: 30px;
-  width: 250px;
-  height: 35px;
-  font-size: 1.15em;
-  background-color: rgb(37, 232, 167);
-  border: transparent;
-  border-radius: 5px;
-  cursor: pointer;
+.btn {
+    padding: 10px 40px;
+    border-radius: 10px;
+    font-size: 25px;
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+    background-color: #476f96;
+    border :none;
+    border-bottom: 5px solid #3b5671;
+    transition: all 0.1s;
+    -webkit-transition: all 0.1s;
+    cursor: pointer;
 }
 
-.opt{
-  width: 200px;
-  height: 30px;
+.btn:active {
+    transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+    border-bottom: 2px solid #3b5671;
 }
 
-.opt:hover{
-  background-color: lightgreen;
+.btn:hover{
+    background-color: #7593b1;
 }
+
 
 .subLoading {
-  margin-top: 30px;
   width: 250px important; 
-  height: 35px;
-  font-size: 1.15em;
-  background-color: rgb(37, 232, 167);
-  border: transparent;
-  border-radius: 5px;
-  cursor: pointer;
 }
 #response{
   text-align: center;
-}
-
-#sub:hover {
-  background-color: rgb(80, 242, 188);
 }
 
 .input_login {
@@ -228,5 +230,7 @@ h1 {
 .switch{
   margin-top: 30px;
 }
+
+
 
 </style>

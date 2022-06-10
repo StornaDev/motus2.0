@@ -8,8 +8,6 @@ const dotenv = require('dotenv');
 function authentificateToken(req,res,next){
     
     const token = req.headers.authorization;
-    // const token = authHeader && authHeader.split(' ')[1];
-    console.log("voici le token de la req : " +token);
     if (!token) {
         return res.sendStatus(401);        
     }

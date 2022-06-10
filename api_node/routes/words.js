@@ -2,14 +2,12 @@ const router = require('express').Router();
 const Word = require('../model/Word');
 
 
-router.get('/',(req,res)=>{
+router.post('/',(req,res)=>{
     
-    Word.find({length: req.body.letter}).then(function (words) {
+    Word.find({length : req.body.letter}).then(function (words) {
         res.send(words);
     });
-    
-    // res.send(words)
-       
+     
 });
 
 

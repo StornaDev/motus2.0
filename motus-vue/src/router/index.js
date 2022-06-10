@@ -25,7 +25,7 @@ const routes = [
     },
     {
         path: '/dico',
-        name: "dictionnaire",
+        name: "Dictionnaire",
         component: DicoView
     },
     {
