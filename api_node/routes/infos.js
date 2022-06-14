@@ -27,7 +27,7 @@ router.get('/', authentificateToken,(req,res)=>{
     // const user = User.findOne({id: req.header('auth-token')});
 
     
-    console.log(req.user);
+    // console.log(req.user);
 
     const user = User.findOne({id: req.user.id});
     if(user){

@@ -64,11 +64,25 @@ const store = createStore({
       state.gameInfos.mode = gameInfos.mode; 
     },
     dicoInfos: function(state, words){
-      // state.words = [];
+      state.words = [];
       for (let i = 0; i < words.length; i++) {
         state.words.push(words[i].word);
       }
       
+    },
+    removeWord: function(state, word){
+    
+      for (let i = 0; i < state.words.length; i++) {
+        if(state.words[i]== word){
+          // state.words.splice(i,i);
+          console.log(state.words.splice(i,1));
+          console.log(state.words);
+        } 
+      }
+    },
+    addWord: function(state, word){
+    
+      state.words.push(word.word)
     },
     deconnection:function(state){
       state.userInfos.email = "";
@@ -144,10 +158,31 @@ const store = createStore({
       })
       
     },
+
+    deleteWord: ({commit},word)=>{
+      let strWord =  word.word;
+      commit('removeWord', strWord);
+      instance.delete('api/words/delete',{
+        data:{
+          word
+        }
+      })
+      .then(function (response){
+        console.log(response);
+        
+      })
+      .catch(function (error){
+        console.log(error);
+      });
+      
+    },
+
+
     addWord:({commit}, wordInfos) =>{
       commit('setStatus', 'loading');
+      commit('addWord', wordInfos);
       return new Promise((resolve, reject) =>{
-        instance.post('words/add', wordInfos)
+        instance.post('api/words/add', wordInfos)
         .then(function (response){
           commit('setStatus','');
           resolve(response);

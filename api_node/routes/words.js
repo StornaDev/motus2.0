@@ -21,7 +21,7 @@ router.post('/add',async (req,res)=>{
     });
     try {
         const savedWord = await word.save()
-        res.send("word register");
+        res.send("word registered");
     } catch (error) {
         res.status(400).send(error);
         console.log(error);
@@ -30,7 +30,8 @@ router.post('/add',async (req,res)=>{
 });
 
 router.delete("/delete", (req, res) => {
-    Word.findOneAndDelete({word : req.body.word })
+    console.log(req.body.word.word);
+    Word.findOneAndDelete({word :req.body.word.word})
     .then(function (words) {
         res.send(words.word+" deleted");
     });

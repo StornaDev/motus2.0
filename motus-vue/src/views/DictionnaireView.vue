@@ -6,8 +6,8 @@
             <div class="wordBox"  v-for="word in words" :key="word.word">
                 <span class="wordText">{{word}}</span>
                 <div class="icons">
-                    <img class="icon" src="@/assets/modify.png" alt="modify">
-                    <img class="icon" src="@/assets/clear.png" alt="clear" @click="supprimer($event)" >
+                    <img class="icon" src="@/assets/modify.png" alt="modify" @click="modifyWord($event)">
+                    <img class="icon" src="@/assets/clear.png" alt="clear" @click="deleteWord($event)" >
                 </div>
 
             </div>
@@ -17,27 +17,32 @@
 
         <div id="letterBtn">
             <button class="btn" :class="{'btn-active' : this.letter =='6' }" @click="switchWords('6')">
-                <!-- <span v-if="status == 'loading'"> Ajout en cour ...</span> -->
+                
                 <span >6 lettres</span>
             </button>
             <button class="btn" :class="{'btn-active' : this.letter =='7' }" @click="switchWords('7')">
-                <!-- <span v-if="status == 'loading'"> Ajout en cour ...</span> -->
+               
                 <span >7 lettres</span>
             </button>
             <button class="btn" :class="{'btn-active' : this.letter =='8' }" @click="switchWords('8')">
-                <!-- <span v-if="status == 'loading'"> Ajout en cour ...</span> -->
+                
                 <span >8 lettres</span>
             </button>
 
         </div>
         
 
-        <input type="text" v-model="wordInput" >
+        <input class="inputText" type="text" v-model="wordInput" >
         <br>
-        <button @click="ajouter" class="btn">
+        <button @click="ajouter" class="btn" :class="{'btn-active' : this.letter =='' }" :disabled="this.letter ==''">
             <span v-if="status == 'loading'"> Ajout en cour ...</span>
             <span v-else>Ajouter</span>
         </button>
+
+        <!-- <button @click="sendModification" class="btn" :class="{'btn-active' : this.letter =='' }" :disabled="this.modifiedWord ==''">
+            <span v-if="status == 'loading'"> Ajout en cour ...</span>
+            <span v-else>Modifier</span>
+        </button> -->
     </div>
    
 
@@ -54,7 +59,8 @@ export default{
            return{ 
             //    words:[],
                letter:'',
-               wordInput:''
+               wordInput:'',
+               modifiedWord:''
            }
        },
     mounted: function(){
@@ -80,29 +86,59 @@ export default{
     },
     methods:{
         ajouter: function () {
-            // 
-            this.$store.dispatch('addWord',{
-              word:this.word,
-              letter: this.word.length + ""
-            }).then(function (response){
-                console.log(response);
-            // self.words = response.data
-            }).catch(function (error){
-                console.log(error);
-            });
+            if(confirm("Voulez-vous vraiment ajouter ce mot ?")){
+                this.$store.dispatch('addWord',{
+                    word:this.wordInput,
+                    letter: this.wordInput.length + ""
+                }).then(function (response){
+                    console.log(response);
+                // self.words = response.data
+                }).catch(function (error){
+                    console.log(error);
+                });
+            }
+            
         },
-        supprimer: function (box) {
-        if(confirm("Do you really want to delete?")){
-            let word = box.target.parentNode.parentNode.childNodes[0].innerText;
+        deleteWord: function (box) {
+       
+            if(confirm("Do you really want to delete?")){  
+                let word = box.target.parentNode.parentNode.childNodes[0].innerText;
+                
+                this.$store.dispatch('deleteWord', {
+                word : word
+                }).then(function (){
+                }).catch(function (error){
+                    console.log(error);
+                });
+            }
 
-            this.$store.dispatch('getDicoInfos', {
-               word : word
-            }).then(function (){
-            }).catch(function (error){
-                console.log(error);
-            });
+        },
+        modifyWord: function () {
+       
+            // if(confirm("Do you really want to delete?")){  
+            //     let word = box.target.parentNode.parentNode.childNodes[0].innerText;
+                
+            //     this.$store.dispatch('deleteWord', {
+            //     word : word
+            //     }).then(function (){
+            //     }).catch(function (error){
+            //         console.log(error);
+            //     });
+            // }
 
-        }    
+        },
+        sendModification: function (box) {
+       
+            if(confirm("Do you really want to delete?")){  
+                let word = box.target.parentNode.parentNode.childNodes[0].innerText;
+                
+                this.$store.dispatch('deleteWord', {
+                word : word
+                }).then(function (){
+                }).catch(function (error){
+                    console.log(error);
+                });
+            }
 
         },
         switchWords: function(letter){
@@ -200,5 +236,12 @@ export default{
 
     input{
         margin: 2vw 0 1vw 0;
+    }
+    .inputText{
+        height: 30px;
+        width: 200px;
+        border-radius: 3px;
+        background-color: #e7eff6;
+
     }
 </style>
