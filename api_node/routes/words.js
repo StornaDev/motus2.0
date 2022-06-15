@@ -19,6 +19,12 @@ router.post('/add',async (req,res)=>{
         length: req.body.letter,
         
     });
+
+    if(Word.findOne({word :word.word})){
+        console.log("mot déjà enregistré");
+        return res.status(400).send("alr"); 
+    } 
+
     try {
         const savedWord = await word.save()
         res.send("word registered");
@@ -30,7 +36,6 @@ router.post('/add',async (req,res)=>{
 });
 
 router.delete("/delete", (req, res) => {
-    console.log(req.body.word.word);
     Word.findOneAndDelete({word :req.body.word.word})
     .then(function (words) {
         res.send(words.word+" deleted");

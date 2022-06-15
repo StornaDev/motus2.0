@@ -181,6 +181,7 @@ const store = createStore({
     addWord:({commit}, wordInfos) =>{
       commit('setStatus', 'loading');
       commit('addWord', wordInfos);
+      
       return new Promise((resolve, reject) =>{
         instance.post('api/words/add', wordInfos)
         .then(function (response){

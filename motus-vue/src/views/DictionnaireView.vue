@@ -6,7 +6,7 @@
             <div class="wordBox"  v-for="word in words" :key="word.word">
                 <span class="wordText">{{word}}</span>
                 <div class="icons">
-                    <img class="icon" src="@/assets/modify.png" alt="modify" @click="modifyWord($event)">
+                    <!-- <img class="icon" src="@/assets/modify.png" alt="modify" @click="modifyWord($event)"> -->
                     <img class="icon" src="@/assets/clear.png" alt="clear" @click="deleteWord($event)" >
                 </div>
 
@@ -30,6 +30,7 @@
             </button>
 
         </div>
+        
         
 
         <input class="inputText" type="text" v-model="wordInput" >
@@ -87,15 +88,25 @@ export default{
     methods:{
         ajouter: function () {
             if(confirm("Voulez-vous vraiment ajouter ce mot ?")){
-                this.$store.dispatch('addWord',{
-                    word:this.wordInput,
-                    letter: this.wordInput.length + ""
-                }).then(function (response){
-                    console.log(response);
-                // self.words = response.data
-                }).catch(function (error){
-                    console.log(error);
-                });
+                let letter = this.wordInput.length+'';
+                if(this.letter==letter){
+                    this.$store.dispatch('addWord',{
+                        word:this.wordInput,
+                        letter: this.wordInput.length + ""
+                    }).then(function (response){
+                        console.log(response);
+                        alert('Le mot'+ this.wordInput+ 'a été enregistré')
+                    }).catch(function (error){
+                        if (error.response.data=='alr') {
+                            alert('Le mot' + this.wordInput+'est déjà enregistré')
+                        }
+                        
+                    });
+
+                }else{
+                     alert('Veuillez ajouter un mot de ' + this.letter+' lettres')
+                }
+                
             }
             
         },
@@ -195,7 +206,7 @@ export default{
     .icon{
         width:20px;
         margin : 10% 5% 0 5%;
-        opacity: 0.5;
+        opacity: 0.25;
         cursor: pointer;
     }
 
