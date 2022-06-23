@@ -12,7 +12,7 @@ export default {
     return {
       currentRow: 0,
       currentColumn: 0,
-      word: "alpaga",
+      word: "alpagaaa",
     };
   },
   props: {
@@ -112,10 +112,16 @@ export default {
         console.log("lettre propal : " + proposition[i]);
         console.log("lettre mot : " + this.word[i].toUpperCase());
         console.log("Mot : " + this.word);
-        if (proposition[i] == this.word[i].toUpperCase()) {
+        if (
+          proposition[i] == this.word[i].toUpperCase() &&
+          niemeOccurence <= nbrOccurence
+        ) {
           columns[i].style.backgroundColor = "#06d6a0";
           columns[i].style.color = "white";
-        } else if (this.word.toUpperCase().includes(proposition[i])) {
+        } else if (
+          this.word.toUpperCase().includes(proposition[i]) &&
+          niemeOccurence <= nbrOccurence
+        ) {
           columns[i].style.backgroundColor = "#ffd166";
           columns[i].style.color = "white";
         }

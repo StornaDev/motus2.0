@@ -4,11 +4,10 @@
       <li><router-link class="link" to="/"> Accueil </router-link></li>
       <li><router-link class="link" to="/play"> Jouer</router-link></li>
     </ul>
-    <<<<<<< HEAD
+
     <router-link class="link" to="/login">
       <img src="../assets/user.png" alt="user" id="user"
     /></router-link>
-    =======
   </nav>
 
   <router-view />
