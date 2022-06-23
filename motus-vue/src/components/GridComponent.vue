@@ -82,49 +82,58 @@ export default {
       return word;
     },
     testWord: function (proposition) {
-      console.log("Propal : " + proposition);
-      //Permet de tester un mot
+      console.log("Propisition : " + proposition);
+      console.log("Mot à trouver : " + this.word);
       let rows = document.getElementsByClassName("row");
       let columns = rows[this.currentRow].childNodes;
-      for (let i = 0; i < this.word.length; i++) {
-        let cont = 0;
-        let niemeOccurence = 0;
-        // let niemeOccurence = 0;
-        for (let j = 0; j < this.word.length; j++) {
-          // console.log(this.word[j]);
-          // on compte le nombre d'occurence de la lettre dans le mot
-          if (this.word[j].toUpperCase() == proposition[i]) {
-            cont++;
-            cont;
+
+      for (let i = 0; i < proposition.length; i++) {
+        let nbrOccurence = 0;
+        let niemeOccurence = 1;
+        //Pour chaque lettre de la proposition
+        console.log("Lettre de la proposition : " + proposition[i]);
+
+        for (let j = 0; j < proposition.length; j++) {
+          //On compte le nombre d'occurence de la lettre dans le mot à trouver
+          if (proposition[i] == this.word[j].toUpperCase()) {
+            nbrOccurence++;
           }
         }
 
-        for (let h = 0; h <= i; h++) {
-          // console.log("lettre du mot :" + this.word[h].toUpperCase());
-          // console.log("lettre de la propistion : " + proposition[h]);
-          if (this.word[h].toUpperCase() == proposition[i]) {
+        for (let h = 0; h < i; h++) {
+          //On calcul la nieme occurence de cette lettre dans la proposition
+          if (proposition[i] == proposition[h].toUpperCase()) {
             niemeOccurence++;
-            console.log(
-              "La lettre " +
-                proposition[i] +
-                " en position " +
-                i +
-                " est l'occurence " +
-                niemeOccurence +
-                " du mot " +
-                this.word
-            );
           }
         }
 
-        // console.log("Nombre de lettres " + cont);
+        console.log("nombre d'occurence dans le mot : " + nbrOccurence);
+        console.log("Nieme occurence : " + niemeOccurence);
+        console.log("lettre propal : " + proposition[i]);
+        console.log("lettre mot : " + this.word[i].toUpperCase());
+        console.log("Mot : " + this.word);
         if (proposition[i] == this.word[i].toUpperCase()) {
-          columns[i].style.backgroundColor = "#2a9d8f";
+          columns[i].style.backgroundColor = "#06d6a0";
           columns[i].style.color = "white";
         } else if (this.word.toUpperCase().includes(proposition[i])) {
-          columns[i].style.backgroundColor = "#e9c46a";
+          columns[i].style.backgroundColor = "#ffd166";
           columns[i].style.color = "white";
         }
+
+        // for (let j = 0; j < proposition.length; j++) {
+        //   //On colore les cases
+        //   if (
+        //     proposition[i] == this.word[i].toUpperCase() &&
+        //     niemeOccurence <= nbrOccurence
+        //   ) {
+        //     columns[i].style.backgroundColor = "green";
+        //   } else if (
+        //     this.word.includes(proposition[i]) &&
+        //     niemeOccurence <= nbrOccurence
+        //   ) {
+        //     columns[i].style.backgroundColor = "yellow";
+        //   }
+        // }
       }
     },
   },
