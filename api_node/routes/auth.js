@@ -1,20 +1,20 @@
 const router = require('express').Router();
 const User = require('../model/User');
-const {registerValidation, loginValidation}= require('../validation');
+const { registerValidation, loginValidation } = require('../validation');
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 
-router.post('/register', async (req,res)=>{
+router.post('/register', async (req, res) => {
     // validation of the data 
-    const {error} = registerValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    const { error } = registerValidation(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
     //checing if the user is already in the database
-    const emailExist = await User.findOne({email: req.body.email});
+    const emailExist = await User.findOne({ email: req.body.email });
 
-    if(emailExist) return res.status(400).send('Email already exists');
-            
+    if (emailExist) return res.status(400).send("L'email existe déjà");
+
 
     //Hash the password
     const salt = await bcrypt.genSalt(10)
@@ -28,7 +28,7 @@ router.post('/register', async (req,res)=>{
     });
     try {
         const savedUser = await user.save()
-        res.send({user: user._id});
+        res.send({ user: user._id });
     } catch (error) {
         res.status(400).send(error);
         console.log(error);
@@ -37,26 +37,26 @@ router.post('/register', async (req,res)=>{
 
 //login 
 
-router.post('/login',async (req, res) =>{
-     // validation of the data 
-     const {error} = loginValidation(req.body);
-     if(error) return res.status(400).send(error.details[0].message);
+router.post('/login', async (req, res) => {
+    // validation of the data 
+    const { error } = loginValidation(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-     //checing if the user is already in the database
-     const user = await User.findOne({email: req.body.email});
-     if(!user) return res.status(400).send("Email is wrong");
+    //checing if the user is already in the database
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) return res.status(400).send("Il y a une erreur dans votre email");
 
-     //PASSWORD IS CORRECT
-     const validPass = await bcrypt.compare(req.body.password, user.password);
-     if(!validPass) return res.status(400).send('Invalid password');
+    //PASSWORD IS CORRECT
+    const validPass = await bcrypt.compare(req.body.password, user.password);
+    if (!validPass) return res.status(400).send('Mot de passe invalide');
 
-     //Create and assign a token
-     //  const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {expiresIn:'1800s'});
-     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+    //Create and assign a token
+    //  const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {expiresIn:'1800s'});
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
 
-     //  res.header('auth-token',token).send({user: user._id, token});
-     
+    //  res.header('auth-token',token).send({user: user._id, token});
+
     res.send(token);
-}); 
+});
 
 module.exports = router;

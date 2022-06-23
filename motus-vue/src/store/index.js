@@ -97,6 +97,7 @@ const store = createStore({
         token: '',
       };
       instance.defaults.headers.common['authorization'] = '';
+      localStorage.removeItem("user");
 
 
     },
