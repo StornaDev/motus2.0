@@ -39,7 +39,9 @@ const store = createStore({
     },
     gameInfos: {
       nbrLettre: '',
-      mode: ''
+      mode: '',
+      win: false,
+      gameEnd: false
     },
     words: []
   },
@@ -97,6 +99,15 @@ const store = createStore({
       instance.defaults.headers.common['authorization'] = '';
 
 
+    },
+
+    CHANGE_WIN: function (state) {
+      state.gameInfos.win = true;
+      state.gameInfos.gameEnd = true;
+    },
+
+    GAME_END: function (state) {
+      state.gameInfos.gameEnd = true;
     }
   },
   actions: {
@@ -199,6 +210,14 @@ const store = createStore({
       });
 
     },
+
+    changeWin: ({ commit }) => {
+      commit("CHANGE_WIN");
+    },
+
+    gameEnd: ({ commit }) => {
+      commit("GAME_END");
+    }
 
   }
 })

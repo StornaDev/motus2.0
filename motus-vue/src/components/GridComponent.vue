@@ -1,7 +1,6 @@
 <template>
   <div id="gridContainer">
     <table id="grid"></table>
-    <h1>Bonsoir</h1>
   </div>
 </template>
 
@@ -13,6 +12,7 @@ export default {
       currentRow: 0,
       currentColumn: 0,
       word: "alpagaaa",
+      gameEnd: false,
     };
   },
   props: {
@@ -38,37 +38,48 @@ export default {
     },
 
     printLetter: function (keyPressed) {
-      let nbrOfRows = document.getElementsByClassName("row").length;
-      let rows = document.getElementsByClassName("row");
-      if (
-        this.currentColumn < this.gameInfos.nbrLettre &&
-        this.currentRow < nbrOfRows &&
-        keyPressed.keyCode >= 97 &&
-        keyPressed.keyCode <= 122
-      ) {
-        // Replace 6 by the number of columns
+      if (!this.$store.state.gameInfos.gameEnd) {
+        let nbrOfRows = document.getElementsByClassName("row").length;
+        let rows = document.getElementsByClassName("row");
+        if (
+          this.currentColumn < this.gameInfos.nbrLettre &&
+          this.currentRow < nbrOfRows &&
+          keyPressed.keyCode >= 97 &&
+          keyPressed.keyCode <= 122
+        ) {
+          // Replace 6 by the number of columns
 
-        console.log(rows[this.currentRow]);
-        rows[this.currentRow].childNodes[this.currentColumn].innerText =
-          keyPressed.key.toUpperCase();
-        rows[this.currentRow].childNodes[this.currentColumn].classList.add(
-          "writtendTd"
-        );
-        this.currentColumn += 1;
-        // let row =
+          console.log(rows[this.currentRow]);
+          rows[this.currentRow].childNodes[this.currentColumn].innerText =
+            keyPressed.key.toUpperCase();
+          rows[this.currentRow].childNodes[this.currentColumn].classList.add(
+            "writtendTd"
+          );
+          this.currentColumn += 1;
+          // let row =
+        }
       }
     },
     validateWord() {
       //Permet de valider un mot
-      let proposedWord = this.getProposedWord(); //On récupère la proposition
-      let rows = document.getElementsByClassName("row");
-      if (this.currentColumn == this.gameInfos.nbrLettre) {
-        //Si il y a le bon nombre de lettres
-        this.testWord(proposedWord); //Alors on test la proposition
-        this.currentColumn = 0; //On remet la colonne à zéro
-        this.currentRow++; //On passe à la ligne suivante
-        rows[this.currentRow].childNodes[this.currentColumn].innerText = //Et la premiere case de la ligne suivante est remplie avec la première lettre
-          rows[this.currentRow - 1].childNodes[this.currentColumn].innerText;
+      if (!this.$store.state.gameInfos.gameEnd) {
+        let proposedWord = this.getProposedWord(); //On récupère la proposition
+        let rows = document.getElementsByClassName("row");
+        let nbrLigneMax = 6;
+        if (this.currentColumn == this.gameInfos.nbrLettre) {
+          //Si il y a le bon nombre de lettres
+          this.testWord(proposedWord); //Alors on test la proposition
+          this.currentColumn = 0; //On remet la colonne à zéro
+          this.currentRow++; //On passe à la ligne suivante
+          if (this.currentRow > nbrLigneMax) {
+            this.$store.dispatch("gameEnd");
+          } else {
+            rows[this.currentRow].childNodes[this.currentColumn].innerText = //Et la premiere case de la ligne suivante est remplie avec la première lettre
+              rows[this.currentRow - 1].childNodes[
+                this.currentColumn
+              ].innerText;
+          }
+        }
       }
     },
     getProposedWord: function () {
@@ -82,10 +93,9 @@ export default {
       return word;
     },
     testWord: function (proposition) {
-      console.log("Propisition : " + proposition);
-      console.log("Mot à trouver : " + this.word);
       let rows = document.getElementsByClassName("row");
       let columns = rows[this.currentRow].childNodes;
+      let victoire = true;
 
       for (let i = 0; i < proposition.length; i++) {
         let nbrOccurence = 0;
@@ -106,40 +116,31 @@ export default {
             niemeOccurence++;
           }
         }
-
-        console.log("nombre d'occurence dans le mot : " + nbrOccurence);
-        console.log("Nieme occurence : " + niemeOccurence);
-        console.log("lettre propal : " + proposition[i]);
-        console.log("lettre mot : " + this.word[i].toUpperCase());
-        console.log("Mot : " + this.word);
         if (
+          //Si la lettre est bien positionnée
           proposition[i] == this.word[i].toUpperCase() &&
           niemeOccurence <= nbrOccurence
         ) {
-          columns[i].style.backgroundColor = "#06d6a0";
+          columns[i].style.backgroundColor = "#43aa8b";
           columns[i].style.color = "white";
+          columns[i].style.border = "none";
         } else if (
+          //Si la lettre est comprise dans le mot à trouver mais qu'elle n'est pas bien positionnée :
           this.word.toUpperCase().includes(proposition[i]) &&
           niemeOccurence <= nbrOccurence
         ) {
-          columns[i].style.backgroundColor = "#ffd166";
+          columns[i].style.backgroundColor = "#f9c74f";
           columns[i].style.color = "white";
+          victoire = false;
+        } else {
+          victoire = false;
         }
+      }
 
-        // for (let j = 0; j < proposition.length; j++) {
-        //   //On colore les cases
-        //   if (
-        //     proposition[i] == this.word[i].toUpperCase() &&
-        //     niemeOccurence <= nbrOccurence
-        //   ) {
-        //     columns[i].style.backgroundColor = "green";
-        //   } else if (
-        //     this.word.includes(proposition[i]) &&
-        //     niemeOccurence <= nbrOccurence
-        //   ) {
-        //     columns[i].style.backgroundColor = "yellow";
-        //   }
-        // }
+      //Si le mot est trouvé alors on modifie la victoire  à true dans le store
+      if (victoire) {
+        this.$store.dispatch("changeWin");
+        this.$store.dispatch("gameEnd");
       }
     },
   },
