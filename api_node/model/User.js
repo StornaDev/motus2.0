@@ -4,29 +4,32 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        min:6,
+        min: 6,
         max: 255
     },
-    email:{
+    email: {
         type: String,
         required: true,
-        max:255,
-        min:6
+        max: 255,
+        min: 6
     },
-    password:{
-        type:String,
-        required:true,
-        max:1024,
-        min:6
+    password: {
+        type: String,
+        required: true,
+        max: 1024,
+        min: 6
     },
-    role:{
-        type:String,
-        default:"user"
+    role: {
+        type: String,
+        default: "user"
     },
-    date:{
-        type:Date,
-        default:Date.now
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    room: {
+        type: String,
     }
 });
 
-module.exports = mongoose.model('User',userSchema)
+module.exports = mongoose.model('User', userSchema)

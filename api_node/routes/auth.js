@@ -59,4 +59,21 @@ router.post('/login', async (req, res) => {
     res.send(token);
 });
 
+router.post('/add_room', async (req, res) => {
+    const update = { room: req.body.room_code }
+    const query = User.findOneAndUpdate({ name: req.body.name }, update);
+
+    query.exec(function (err, obj) { //On trouve un mot au hasard grâce à la requete
+        if (err) { //S'il y a une erreur
+            res.status(400).send(err)
+        } else { //S'il n'y a pas d'erreur
+            if (!obj) {
+                res.status(200).send() //S'il n'y a pas d'objet on renvoi un objet vide
+            } else {
+                res.status(200).send(obj) // Sinon on renvoie le mot
+            }
+        }
+    });
+});
+
 module.exports = router;

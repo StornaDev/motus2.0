@@ -37,6 +37,14 @@ export default {
     GridComponent,
   },
   mounted() {
+    const roomInfos = {
+      name: this.$store.state.userInfos.name,
+      room_code: this.$route.params.code,
+    };
+
+    this.$store.dispatch("create_room", roomInfos);
+    this.$store.dispatch("updateUserRoom", roomInfos);
+    console.log(roomInfos);
     if (
       this.$store.state.gameInfos.nbrLettre == "" ||
       this.$store.state.gameInfos.mode == ""

@@ -8,6 +8,11 @@ const instance = axios.create({
 });
 
 let user = localStorage.getItem('user');
+let userInfos = localStorage.getItem("userInfos");
+
+
+
+
 if (!user) {
   user = {
     id: -1,
@@ -24,8 +29,16 @@ if (!user) {
     };
 
   }
+}
 
-
+if (!userInfos) {
+  userInfos = {
+    name: '',
+    email: '',
+    role: ''
+  }
+} else {
+  userInfos = JSON.parse(userInfos)
 }
 
 const store = createStore({
@@ -61,6 +74,8 @@ const store = createStore({
       state.userInfos.email = userInfos.email;
       state.userInfos.name = userInfos.name;
       state.userInfos.role = userInfos.role;
+      console.log("fsf")
+      localStorage.setItem('userInfos', JSON.stringify(userInfos));
     },
     setGameInfos: function (state, gameInfos) {
       state.gameInfos.nbrLettre = gameInfos.nbrLettre;
@@ -99,6 +114,7 @@ const store = createStore({
       };
       instance.defaults.headers.common['authorization'] = '';
       localStorage.removeItem("user");
+      localStorage.removeItem("userInfos");
 
 
     },
@@ -140,6 +156,7 @@ const store = createStore({
           .then(function (response) {
             commit('setStatus', '');
             commit('logUser', response.data);
+            console.log(response.data)
             resolve(response);
           })
           .catch(function (error) {
@@ -228,6 +245,36 @@ const store = createStore({
             reject(error)
           })
       })
+    },
+    create_room: ({ commit }, roomInfos) => {
+      commit;
+      return new Promise((resolve, reject) => {
+        instance.post("api/rooms/add", roomInfos)
+          .then(function (response) {
+            // commit("SET_WORD", response.data)
+            resolve(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+            reject(error)
+          })
+      })
+      // console.log(roomInfos);
+    },
+    updateUserRoom: ({ commit }, roomInfos) => {
+      commit;
+      return new Promise((resolve, reject) => {
+        instance.post("api/user/add_room", roomInfos)
+          .then(function (response) {
+            // commit("SET_WORD", response.data)
+            resolve(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+            reject(error)
+          })
+      })
+      // console.log(roomInfos);
     },
 
     changeWin: ({ commit }) => {

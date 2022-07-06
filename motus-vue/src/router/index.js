@@ -29,7 +29,7 @@ const routes = [
         component: DicoView
     },
     {
-        path: '/game',
+        path: '/game/:code',
         name: "Game",
         component: GameView
     },

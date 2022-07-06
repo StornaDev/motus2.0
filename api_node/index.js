@@ -10,6 +10,7 @@ app.use(cors());
 const wordsRoute = require('./routes/words');
 const authRoute = require('./routes/auth');
 const userInfoRoute = require('./routes/infos');
+const roomsRoute = require("./routes/rooms");
 dotenv.config();
 
 // db connection
@@ -26,5 +27,6 @@ app.use(express.json());
 app.use('/api/words', wordsRoute);
 app.use('/api/user', authRoute);
 app.use('/api/infos', userInfoRoute);
+app.use('/api/rooms', roomsRoute);
 
 app.listen(3000, () => console.log("Server up and running"));

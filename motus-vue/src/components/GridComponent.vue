@@ -153,7 +153,6 @@ export default {
       Length: this.$store.state.gameInfos.nbrLettre,
     };
     this.$store.dispatch("getWord", wordInfos);
-    console.log(this.word);
   },
 
   mounted: function () {
