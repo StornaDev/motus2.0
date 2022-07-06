@@ -115,8 +115,6 @@ const store = createStore({
       instance.defaults.headers.common['authorization'] = '';
       localStorage.removeItem("user");
       localStorage.removeItem("userInfos");
-
-
     },
 
     CHANGE_WIN: function (state) {
@@ -129,7 +127,15 @@ const store = createStore({
     },
     SET_WORD: function (state, word) {
       state.word = word
-    }
+    },
+    DELETE_GAME_INFOS: function (state) {
+      state.gameInfos = {
+        nbrLettre: '',
+        mode: '',
+        win: false,
+        gameEnd: false
+      }
+    },
   },
   actions: {
     createAccount: ({ commit }, userInfos) => {
@@ -275,6 +281,9 @@ const store = createStore({
           })
       })
       // console.log(roomInfos);
+    },
+    deleteGameInfos: ({ commit }) => {
+      commit('DELETE_GAME_INFOS')
     },
 
     changeWin: ({ commit }) => {

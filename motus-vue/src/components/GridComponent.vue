@@ -147,14 +147,13 @@ export default {
       }
     },
   },
-
   beforeCreate: function () {
     let wordInfos = {
       Length: this.$store.state.gameInfos.nbrLettre,
+      room_code: this.$route.params.code,
     };
     this.$store.dispatch("getWord", wordInfos);
   },
-
   mounted: function () {
     this.initGrid();
     //Ajout de l'écouteur d'évènement clavier

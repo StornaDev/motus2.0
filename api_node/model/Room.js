@@ -9,6 +9,9 @@ const Room = new mongoose.Schema({
         type: String,
         required: true,
     },
+    room_word: {
+        type: String,
+    }
 });
 
 module.exports = mongoose.model('Room', Room)

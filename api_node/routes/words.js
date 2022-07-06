@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Word = require('../model/Word');
-
+const Room = require('../model/Room')
 
 router.post('/', (req, res) => {
 
@@ -36,17 +36,21 @@ router.post('/add', async (req, res) => {
 });
 
 router.post('/get_word', (req, res) => {
+    console.log(req.body)
     const query = Word.findOne({ length: req.body.Length }); //Onécrit la requete qui trouve un mot dont la longueur est égale à celle recherchée
-
     Word.count({ length: req.body.Length }).exec(function (err, count) { //On compte tous les mots qui sont de la bonne longueur
         const random = Math.floor(Math.random() * count) //On génére un random entre 0 et le nombre de mots de la bonne longueur
         query.skip(random).exec(function (err, obj) { //On trouve un mot au hasard grâce à la requete
             if (err) { //S'il y a une erreur
                 res.status(400).send(err)
             } else { //S'il n'y a pas d'erreur
+
                 if (!obj) {
                     res.status(200).send() //S'il n'y a pas d'objet on renvoi un objet vide
                 } else {
+                    update = { room_word: obj.word }
+                    const query2 = Room.findOneAndUpdate({ room_code: req.body.room_code }, update);
+                    query2.exec()
                     res.status(200).send(obj.word) // Sinon on renvoie le mot
                 }
             }

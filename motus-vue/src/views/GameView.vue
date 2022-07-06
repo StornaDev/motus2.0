@@ -36,6 +36,7 @@ export default {
   components: {
     GridComponent,
   },
+
   mounted() {
     const roomInfos = {
       name: this.$store.state.userInfos.name,
@@ -44,7 +45,7 @@ export default {
 
     this.$store.dispatch("create_room", roomInfos);
     this.$store.dispatch("updateUserRoom", roomInfos);
-    console.log(roomInfos);
+
     if (
       this.$store.state.gameInfos.nbrLettre == "" ||
       this.$store.state.gameInfos.mode == ""

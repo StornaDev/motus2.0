@@ -53,6 +53,9 @@ export default {
       nbrLettre: "6",
     };
   },
+  beforeCreate: function () {
+    this.$store.dispatch("deleteGameInfos");
+  },
 
   methods: {
     switchToSolo: function () {
