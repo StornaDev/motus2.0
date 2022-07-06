@@ -54,7 +54,6 @@ export default {
         ) {
           // Replace 6 by the number of columns
 
-          console.log(rows[this.currentRow]);
           rows[this.currentRow].childNodes[this.currentColumn].innerText =
             keyPressed.key.toUpperCase();
           rows[this.currentRow].childNodes[this.currentColumn].classList.add(
@@ -106,7 +105,6 @@ export default {
         let nbrOccurence = 0;
         let niemeOccurence = 1;
         //Pour chaque lettre de la proposition
-        console.log("Lettre de la proposition : " + proposition[i]);
 
         for (let j = 0; j < proposition.length; j++) {
           //On compte le nombre d'occurence de la lettre dans le mot à trouver

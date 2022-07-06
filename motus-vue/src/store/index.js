@@ -220,7 +220,6 @@ const store = createStore({
       return new Promise((resolve, reject) => {
         instance.post("api/words/get_word", wordInfos)
           .then(function (response) {
-            console.log(response)
             commit("SET_WORD", response.data)
             resolve(response)
           })

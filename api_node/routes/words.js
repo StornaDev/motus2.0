@@ -36,18 +36,18 @@ router.post('/add', async (req, res) => {
 });
 
 router.post('/get_word', (req, res) => {
-    const query = Word.findOne({ length: req.body.Length });
+    const query = Word.findOne({ length: req.body.Length }); //Onécrit la requete qui trouve un mot dont la longueur est égale à celle recherchée
 
-    Word.count({ length: req.body.Length }).exec(function (err, count) {
-        const random = Math.floor(Math.random() * count)
-        query.skip(random).exec(function (err, obj) {
-            if (err) {
+    Word.count({ length: req.body.Length }).exec(function (err, count) { //On compte tous les mots qui sont de la bonne longueur
+        const random = Math.floor(Math.random() * count) //On génére un random entre 0 et le nombre de mots de la bonne longueur
+        query.skip(random).exec(function (err, obj) { //On trouve un mot au hasard grâce à la requete
+            if (err) { //S'il y a une erreur
                 res.status(400).send(err)
-            } else {
+            } else { //S'il n'y a pas d'erreur
                 if (!obj) {
-                    res.status(200).send()
+                    res.status(200).send() //S'il n'y a pas d'objet on renvoi un objet vide
                 } else {
-                    res.status(200).send(obj.word)
+                    res.status(200).send(obj.word) // Sinon on renvoie le mot
                 }
             }
         });
