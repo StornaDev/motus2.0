@@ -43,7 +43,8 @@ const store = createStore({
       win: false,
       gameEnd: false
     },
-    words: []
+    words: [],
+    word: ""
   },
 
   mutations: {
@@ -109,6 +110,9 @@ const store = createStore({
 
     GAME_END: function (state) {
       state.gameInfos.gameEnd = true;
+    },
+    SET_WORD: function (state, word) {
+      state.word = word
     }
   },
   actions: {
@@ -210,6 +214,21 @@ const store = createStore({
 
       });
 
+    },
+    getWord: ({ commit }, wordInfos) => {
+      commit;
+      return new Promise((resolve, reject) => {
+        instance.post("api/words/get_word", wordInfos)
+          .then(function (response) {
+            console.log(response)
+            commit("SET_WORD", response.data)
+            resolve(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+            reject(error)
+          })
+      })
     },
 
     changeWin: ({ commit }) => {

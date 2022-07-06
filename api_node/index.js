@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const cors =require('cors')
+const cors = require('cors')
 
 app.use(cors());
 
@@ -13,11 +13,11 @@ const userInfoRoute = require('./routes/infos');
 dotenv.config();
 
 // db connection
-mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true},
-(err)=> {
-    if(!err) console.log("Mongodb connecté")
-    else console.log("Connection error : " +err);
-});
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true },
+    (err) => {
+        if (!err) console.log("Mongodb connecté")
+        else console.log("Connection error : " + err);
+    });
 
 //Middleware 
 app.use(express.json());

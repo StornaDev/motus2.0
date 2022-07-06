@@ -11,17 +11,22 @@ export default {
     return {
       currentRow: 0,
       currentColumn: 0,
-      word: "alpagaaa",
       gameEnd: false,
     };
   },
+  // computed: {
+  //   ...mapState({
+  //     word: "word",
+  //   }),
+  // },
   props: {
     nbrLettres: Number,
   },
-  computed: mapState([
+  computed: mapState({
     // map this.count to store.state.count
-    "gameInfos",
-  ]),
+    gameInfos: "gameInfos",
+    word: "word",
+  }),
   methods: {
     initGrid() {
       let grid = document.getElementById("grid");
@@ -143,6 +148,14 @@ export default {
         this.$store.dispatch("gameEnd");
       }
     },
+  },
+
+  beforeCreate: function () {
+    let wordInfos = {
+      Length: this.$store.state.gameInfos.nbrLettre,
+    };
+    this.$store.dispatch("getWord", wordInfos);
+    console.log(this.word);
   },
 
   mounted: function () {
