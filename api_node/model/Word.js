@@ -5,12 +5,12 @@ const wordSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    length:{
+    length: {
         type: String,
         required: true
     },
-    
-    
+
+
 });
 
-module.exports = mongoose.model('Word',wordSchema)
+module.exports = mongoose.model('Word', wordSchema)

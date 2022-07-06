@@ -38,17 +38,21 @@ router.post('/add', async (req, res) => {
 router.post('/get_word', (req, res) => {
     const query = Word.findOne({ length: req.body.Length });
 
-    query.exec(function (err, obj) {
-        if (err) {
-            res.status(400).send(err)
-        } else {
-            if (!obj) {
-                res.status(200).send()
+    Word.count({ length: req.body.Length }).exec(function (err, count) {
+        const random = Math.floor(Math.random() * count)
+        query.skip(random).exec(function (err, obj) {
+            if (err) {
+                res.status(400).send(err)
             } else {
-                res.status(200).send(obj.word)
+                if (!obj) {
+                    res.status(200).send()
+                } else {
+                    res.status(200).send(obj.word)
+                }
             }
-        }
-    });
+        });
+    })
+
 })
 
 router.delete("/delete", (req, res) => {
