@@ -1,8 +1,14 @@
 const express = require('express');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const io = require('socket.io')(server);
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors')
+
+
+const Tchat = require("./model/Tchat")
 
 app.use(cors());
 
@@ -11,6 +17,8 @@ const wordsRoute = require('./routes/words');
 const authRoute = require('./routes/auth');
 const userInfoRoute = require('./routes/infos');
 const roomsRoute = require("./routes/rooms");
+const tchatRoute = require("./routes/tchat")
+
 dotenv.config();
 
 // db connection
@@ -28,5 +36,20 @@ app.use('/api/words', wordsRoute);
 app.use('/api/user', authRoute);
 app.use('/api/infos', userInfoRoute);
 app.use('/api/rooms', roomsRoute);
+app.use('/api/tchat', tchatRoute);
 
-app.listen(3000, () => console.log("Server up and running"));
+io.on('connection', function (socket) {
+    // console.log("Un utilisateur s'est connecté")
+    socket.on('SEND_MESSAGE', function (data) {
+        update = { "message": data.message, "user": data.user };
+        const query = Tchat.findOne({ room_tchatId: data.room_tchatId });
+        query.exec(function (err, obj) {
+            console.log(obj)
+            obj.messages.push(update)
+            obj.save()
+        })
+        io.emit('MESSAGE')
+    });
+});
+
+server.listen(3000, () => console.log("Server up and running"));

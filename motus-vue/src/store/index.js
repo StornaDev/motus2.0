@@ -57,7 +57,8 @@ const store = createStore({
       gameEnd: false
     },
     words: [],
-    word: ""
+    word: "",
+    messages: []
   },
 
   mutations: {
@@ -136,6 +137,9 @@ const store = createStore({
         gameEnd: false
       }
     },
+    SET_MESSAGES: function (state, messages) {
+      state.messages = messages
+    }
   },
   actions: {
     createAccount: ({ commit }, userInfos) => {
@@ -281,6 +285,21 @@ const store = createStore({
           })
       })
       // console.log(roomInfos);
+    },
+    get_messages: ({ commit }, data) => {
+      commit;
+      return new Promise((resolve, reject) => {
+        instance.post("api/tchat/get_messages", data)
+          .then(function (response) {
+            console.log(response.data.messages)
+            commit("SET_MESSAGES", response.data.messages)
+            resolve(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+            reject(error)
+          })
+      })
     },
     deleteGameInfos: ({ commit }) => {
       commit('DELETE_GAME_INFOS')

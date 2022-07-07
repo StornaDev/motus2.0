@@ -1,13 +1,14 @@
 <template>
   <div id="tchat">
     <div id="tchatMessages">
-      <div v-for="msg in messages" v-bind:key="msg.id">{{ msg.message }}</div>
+      <div v-for="msg in this.$store.state.messages" v-bind:key="msg.id">
+        <div>User: {{ msg.user }}</div>
+        {{ msg.message }}
+      </div>
     </div>
     <div id="tchatInput">
       <input type="text" name="" id="" v-model="message" />
       <button id="sendMessage" v-on:click="sendMessage"></button>
-      <h3>{{ message }}</h3>
-      <h2>{{ messages }}</h2>
     </div>
   </div>
 </template>
@@ -24,9 +25,12 @@ export default {
     };
   },
   mounted() {
-    this.socket.on("MESSAGE", (data) => {
-      this.messages = [...this.messages, data];
-      // you can also do this.messages.push(data)
+    this.socket.on("MESSAGE", () => {
+      this.$store.dispatch("get_messages", {
+        room_tchatId: this.$route.params.code,
+      });
+      // this.messages = [...this.messages, data];
+      // // you can also do this.messages.push(data)
     });
   },
   methods: {
@@ -34,8 +38,9 @@ export default {
       e.preventDefault();
 
       this.socket.emit("SEND_MESSAGE", {
-        user: this.user,
+        user: this.$store.state.userInfos.name,
         message: this.message,
+        room_tchatId: this.$route.params.code,
       });
       this.message = "";
     },

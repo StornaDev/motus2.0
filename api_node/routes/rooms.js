@@ -6,10 +6,10 @@ router.post('/add', (req, res) => {
         const room = new Room({
             room_id: count,
             room_code: req.body.room_code,
-            room_tchatId: count
+            room_tchatId: req.body.room_code
         });
         const tchat = new Tchat({
-            room_tchatId: count,
+            room_tchatId: req.body.room_code,
             messages: []
         })
         try {
