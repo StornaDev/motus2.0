@@ -11,7 +11,10 @@ const Room = new mongoose.Schema({
     },
     room_word: {
         type: String,
+    },
+    room_tchatId: {
+        type: String,
     }
 });
 
-module.exports = mongoose.model('Room', Room)
+module.exports = mongoose.model('Room', Room, "rooms")

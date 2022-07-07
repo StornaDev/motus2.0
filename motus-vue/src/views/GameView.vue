@@ -4,6 +4,7 @@
       <GridComponent v-if="gameStarted" />
       <h3 v-if="this.$store.state.gameInfos.win">Victoire !</h3>
       <h2 v-if="this.$store.state.gameInfos.gameEnd">La partie est terminée</h2>
+      <TchatComponent></TchatComponent>
       <!-- <Grid 
              v-bind:mode="mode"
              v-bind:nbrLettre="nbrLettre"/> -->
@@ -17,6 +18,7 @@
 <script>
 // import Grid from '../components/TableGrid.vue'
 import GridComponent from "../components/GridComponent.vue";
+import TchatComponent from "../components/TchatComponent.vue";
 
 export default {
   data: function () {
@@ -35,6 +37,7 @@ export default {
   },
   components: {
     GridComponent,
+    TchatComponent,
   },
 
   mounted() {
