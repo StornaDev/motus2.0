@@ -1,7 +1,7 @@
 <template>
   <div id="tchat">
     <div id="tchatMessages">
-      <div v-for="msg in this.$store.state.messages" v-bind:key="msg.id">
+      <div v-for="msg in messages" v-bind:key="msg.id">
         <div>User: {{ msg.user }}</div>
         {{ msg.message }}
       </div>
@@ -15,22 +15,24 @@
 
 <script>
 import io from "socket.io-client";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       user: "",
       message: "",
-      messages: [],
       socket: io("localhost:3000"),
     };
   },
+  computed: mapState({
+    messages: "messages",
+  }),
   mounted() {
     this.socket.on("MESSAGE", () => {
+      console.log("message");
       this.$store.dispatch("get_messages", {
         room_tchatId: this.$route.params.code,
       });
-      // this.messages = [...this.messages, data];
-      // // you can also do this.messages.push(data)
     });
   },
   methods: {
