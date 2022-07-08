@@ -33,7 +33,7 @@ if (!user) {
 
 if (!userInfos) {
   userInfos = {
-    name: '',
+    name: 'Invité',
     email: '',
     role: ''
   }
