@@ -69,6 +69,7 @@ export default {
 
 <style>
 #tchat {
+  width: 30%;
   position: relative;
   height: 500px;
 }

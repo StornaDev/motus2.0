@@ -4,7 +4,7 @@
       <GridComponent v-if="gameStarted" />
       <h3 v-if="this.$store.state.gameInfos.win">Victoire !</h3>
       <h2 v-if="this.$store.state.gameInfos.gameEnd">La partie est terminée</h2>
-      <TchatComponent></TchatComponent>
+      <TchatComponent v-if="gameStarted"></TchatComponent>
       <!-- <Grid 
              v-bind:mode="mode"
              v-bind:nbrLettre="nbrLettre"/> -->
@@ -24,15 +24,6 @@ export default {
   data: function () {
     return {
       gameStarted: false,
-      //   nbrLettre: "",
-      //   mode: "",
-      //   container: "",
-      //   grille: [],
-      //   currentLetter: "",
-      //   currentRowContent: [],
-      //   currentRow: 0,
-      //   currentColumn: 0,
-      //   mot: "alpaga",
     };
   },
   components: {
@@ -88,6 +79,8 @@ export default {
 
 #content {
   margin-top: 20vh;
+  display: flex;
+  justify-content: center;
 }
 
 table {
