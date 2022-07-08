@@ -43,17 +43,21 @@ export default {
   },
   beforeMount() {
     this.socket.on("MESSAGE", () => {
-      console.log("bonsoir");
       this.$store
         .dispatch("get_messages", {
           room_tchatId: this.$route.params.code,
         })
         .then(function () {
           const objDiv = document.getElementById("tchatMessages");
-          const lastChild = objDiv.lastElementChild;
-          console.log(lastChild);
           objDiv.scrollTop = objDiv.scrollHeight;
         });
+    });
+  },
+  mounted: function () {
+    window.addEventListener("keyup", (e) => {
+      if (e.key == "Enter" && this.$store.state.tchatFocus) {
+        this.sendMessage(e);
+      }
     });
   },
   methods: {
@@ -85,7 +89,7 @@ export default {
 
 #tchatMessages {
   width: 100%;
-  height: 400px;
+  height: 470px;
   position: absolute;
   overflow: hidden;
   text-align: left;
@@ -93,7 +97,6 @@ export default {
 
 #tchatInput {
   position: absolute;
-  height: 100px;
   bottom: 0;
 }
 

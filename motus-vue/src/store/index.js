@@ -72,7 +72,6 @@ const store = createStore({
       state.userInfos.email = userInfos.email;
       state.userInfos.name = userInfos.name;
       state.userInfos.role = userInfos.role;
-      console.log("fsf")
       localStorage.setItem('userInfos', JSON.stringify(userInfos));
     },
     setGameInfos: function (state, gameInfos) {
@@ -166,7 +165,6 @@ const store = createStore({
           .then(function (response) {
             commit('setStatus', '');
             commit('logUser', response.data);
-            console.log(response.data)
             resolve(response);
           })
           .catch(function (error) {
@@ -210,7 +208,6 @@ const store = createStore({
 
       instance.post('api/words', letter)
         .then(function (response) {
-          console.log(response);
           commit('dicoInfos', response.data);
         })
         .catch(function (error) {
@@ -227,8 +224,7 @@ const store = createStore({
           word
         }
       })
-        .then(function (response) {
-          console.log(response);
+        .then(function () {
 
         })
         .catch(function (error) {
@@ -305,7 +301,6 @@ const store = createStore({
       return new Promise((resolve, reject) => {
         instance.post("api/tchat/get_messages", data)
           .then(function (response) {
-            console.log(response.data.messages)
             commit("SET_MESSAGES", response.data.messages)
             resolve(response)
           })

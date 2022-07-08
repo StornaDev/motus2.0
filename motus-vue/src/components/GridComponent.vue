@@ -191,6 +191,11 @@ export default {
   margin-top: 20vh;
 }
 
+#gridContainer {
+  width: 500px;
+  height: 500px;
+}
+
 table {
   border-spacing: 0;
   margin: auto;
@@ -198,12 +203,14 @@ table {
   border-style: solid;
   border-color: white;
   border-spacing: 10px;
+  height: 100%;
+  width: 100%;
 }
 td {
   border: 1px solid black;
   padding: 2px;
-  width: 4vw;
-  height: 4vw;
+  width: 25px;
+  height: 65px;
   text-align: center;
   font-family: "Poppins", sans-serif;
   border-style: solid;
