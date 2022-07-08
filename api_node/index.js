@@ -50,8 +50,8 @@ io.on('connection', function (socket) {
         const query = Tchat.findOne({ room_tchatId: data.room_tchatId });
         query.exec(function (err, obj) {
             console.log(obj)
-            obj.messages.push(update)
-            obj.save()
+            obj.messages.push(update) //On rajoute le message à la liste de messages
+            obj.save() //On sauvegarde les messages
             io.sockets.emit('MESSAGE', obj)
         })
 

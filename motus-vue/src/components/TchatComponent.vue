@@ -42,6 +42,7 @@ export default {
   },
   beforeMount() {
     this.socket.on("MESSAGE", () => {
+      console.log("bonsoir");
       this.$store.dispatch("get_messages", {
         room_tchatId: this.$route.params.code,
       });
