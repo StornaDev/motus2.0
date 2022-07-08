@@ -47,8 +47,9 @@ io.on('connection', function (socket) {
             console.log(obj)
             obj.messages.push(update)
             obj.save()
+            io.emit('MESSAGE', obj)
         })
-        io.emit('MESSAGE')
+
     });
 });
 

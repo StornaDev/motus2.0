@@ -27,9 +27,14 @@ export default {
   computed: mapState({
     messages: "messages",
   }),
-  mounted() {
+  beforeCreate() {
+    //On charge les messages du tchat avant que la vue ne soit créée
+    this.$store.dispatch("get_messages", {
+      room_tchatId: this.$route.params.code,
+    });
+  },
+  beforeMount() {
     this.socket.on("MESSAGE", () => {
-      console.log("message");
       this.$store.dispatch("get_messages", {
         room_tchatId: this.$route.params.code,
       });

@@ -189,6 +189,20 @@ const store = createStore({
     moveToGame: ({ commit }, gameInfos) => {
       commit('setGameInfos', gameInfos);
     },
+    getGameInfosFromBdd: ({ commit }, roomInfos) => {
+      instance.post('api/rooms/get_room', roomInfos)
+        .then(function (response) {
+          const gameInfos = {
+            mode: response.data.mode,
+            nbrLettre: response.data.nbrLettre
+          }
+          commit('setGameInfos', gameInfos);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+      // commit('setGameInfos', gameInfos);
+    },
     deconnectUser: ({ commit }) => {
       commit('deconnection');
     },

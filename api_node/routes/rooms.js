@@ -6,7 +6,9 @@ router.post('/add', (req, res) => {
         const room = new Room({
             room_id: count,
             room_code: req.body.room_code,
-            room_tchatId: req.body.room_code
+            room_tchatId: req.body.room_code,
+            nbrLettre: req.body.nbrLettre,
+            mode: req.body.mode
         });
         const tchat = new Tchat({
             room_tchatId: req.body.room_code,
@@ -25,8 +27,13 @@ router.post('/add', (req, res) => {
             console.log(error);
         }
     })
+})
 
-
+router.post('/get_room', (req, res) => {
+    console.log("test")
+    Room.findOne({ room_code: req.body.room_code }).then(function (response) {
+        res.send(response);
+    });
 })
 
 module.exports = router;

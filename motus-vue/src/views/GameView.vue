@@ -41,21 +41,26 @@ export default {
   },
 
   mounted() {
-    const roomInfos = {
-      name: this.$store.state.userInfos.name,
-      room_code: this.$route.params.code,
-    };
-
-    this.$store.dispatch("create_room", roomInfos);
-    this.$store.dispatch("updateUserRoom", roomInfos);
-
     if (
       this.$store.state.gameInfos.nbrLettre == "" ||
       this.$store.state.gameInfos.mode == ""
     ) {
-      this.$router.push("/play");
-      return;
+      this.$store.dispatch("getGameInfosFromBdd", {
+        room_code: this.$route.params.code,
+      });
+      // this.$router.push("/play");
+      // return;
     }
+
+    const roomInfos = {
+      name: this.$store.state.userInfos.name,
+      room_code: this.$route.params.code,
+      nbrLettre: this.$store.state.gameInfos.nbrLettre,
+      mode: this.$store.state.gameInfos.mode,
+    };
+
+    this.$store.dispatch("create_room", roomInfos);
+    this.$store.dispatch("updateUserRoom", roomInfos);
   },
   methods: {
     start: function () {

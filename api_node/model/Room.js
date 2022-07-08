@@ -14,6 +14,12 @@ const Room = new mongoose.Schema({
     },
     room_tchatId: {
         type: String,
+    },
+    nbrLettre: {
+        type: String
+    },
+    mode: {
+        type: String
     }
 });
 
