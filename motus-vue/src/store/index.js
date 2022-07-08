@@ -58,7 +58,8 @@ const store = createStore({
     },
     words: [],
     word: "",
-    messages: []
+    messages: [],
+    tchatFocus: false,
   },
 
   mutations: {
@@ -139,6 +140,9 @@ const store = createStore({
     },
     SET_MESSAGES: function (state, messages) {
       state.messages = messages
+    },
+    SET_TCHAT_FOCUS: function (state, infos) {
+      state.tchatFocus = infos.tchatFocus
     }
   },
   actions: {
@@ -325,6 +329,9 @@ const store = createStore({
 
     gameEnd: ({ commit }) => {
       commit("GAME_END");
+    },
+    setTchatFocus: ({ commit }, info) => {
+      commit("SET_TCHAT_FOCUS", info)
     }
 
   }

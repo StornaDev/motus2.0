@@ -7,8 +7,16 @@
       </div>
     </div>
     <div id="tchatInput">
-      <input type="text" name="" id="" v-model="message" />
+      <input
+        @focus="setTchatFocus(true)"
+        @blur="setTchatFocus(false)"
+        type="text"
+        name=""
+        id=""
+        v-model="message"
+      />
       <button id="sendMessage" v-on:click="sendMessage"></button>
+      <h3>{{ tchatFocus }}</h3>
     </div>
   </div>
 </template>
@@ -22,6 +30,7 @@ export default {
       user: "",
       message: "",
       socket: io("localhost:3000"),
+      tchatFocus: false,
     };
   },
   computed: mapState({
@@ -50,6 +59,11 @@ export default {
         room_tchatId: this.$route.params.code,
       });
       this.message = "";
+    },
+    setTchatFocus(tchatFocus) {
+      this.$store.dispatch("setTchatFocus", {
+        tchatFocus: tchatFocus,
+      });
     },
   },
 };

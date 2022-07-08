@@ -158,7 +158,10 @@ export default {
     this.initGrid();
     //Ajout de l'écouteur d'évènement clavier
     window.addEventListener("keypress", (e) => {
-      this.printLetter(e);
+      console.log(this.$store.state.tchatFocus);
+      if (!this.$store.state.tchatFocus) {
+        this.printLetter(e);
+      }
     });
     window.addEventListener("keyup", (e) => {
       if (e.key == "Enter") {
