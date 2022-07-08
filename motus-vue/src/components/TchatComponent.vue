@@ -2,8 +2,8 @@
   <div id="tchat">
     <div id="tchatMessages">
       <div v-for="msg in messages" v-bind:key="msg.id">
-        <div>User: {{ msg.user }}</div>
-        {{ msg.message }}
+        <div class="tchatUser">{{ msg.user }} :</div>
+        <div class="tchatMessage">{{ msg.message }}</div>
       </div>
     </div>
     <div id="tchatInput">
@@ -16,7 +16,6 @@
         v-model="message"
       />
       <button id="sendMessage" v-on:click="sendMessage"></button>
-      <h3>{{ tchatFocus }}</h3>
     </div>
   </div>
 </template>
@@ -30,7 +29,6 @@ export default {
       user: "",
       message: "",
       socket: io("localhost:3000"),
-      tchatFocus: false,
     };
   },
   computed: mapState({
@@ -70,4 +68,28 @@ export default {
 </script>
 
 <style>
+#tchat {
+  position: relative;
+  height: 500px;
+}
+
+#tchatMessages {
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  overflow: scroll;
+  overflow-x: hidden;
+  text-align: left;
+  margin-bottom: 15px !important;
+}
+
+#tchatInput {
+  position: absolute;
+  height: 100px;
+  bottom: 0;
+}
+
+.tchatUser {
+  font-weight: bold;
+}
 </style>
