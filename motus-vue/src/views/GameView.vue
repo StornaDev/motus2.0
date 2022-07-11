@@ -71,16 +71,21 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 
 #container {
+  box-sizing: border-box;
   text-align: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #content {
-  margin-top: 20vh;
   display: flex;
   justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
 table {

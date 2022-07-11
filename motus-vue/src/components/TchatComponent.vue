@@ -54,8 +54,15 @@ export default {
     });
   },
   mounted: function () {
+    const objDiv = document.getElementById("tchatMessages");
+    objDiv.scrollTop = objDiv.scrollHeight;
+    console.log(objDiv);
     window.addEventListener("keyup", (e) => {
-      if (e.key == "Enter" && this.$store.state.tchatFocus) {
+      if (
+        e.key == "Enter" &&
+        this.$store.state.tchatFocus &&
+        this.message != ""
+      ) {
         this.sendMessage(e);
       }
     });
@@ -82,22 +89,31 @@ export default {
 
 <style>
 #tchat {
-  width: 30%;
+  width: 25%;
   position: relative;
-  height: 500px;
+  height: 555px;
+  background-color: lightblue;
+  border-radius: 10px;
 }
 
 #tchatMessages {
-  width: 100%;
   height: 470px;
   position: absolute;
   overflow: hidden;
   text-align: left;
+  padding: 18px 18px 0px 18px;
 }
 
 #tchatInput {
   position: absolute;
   bottom: 0;
+  width: 100%;
+}
+
+#tchatInput input {
+  height: 25px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .message {
@@ -106,5 +122,12 @@ export default {
 
 .tchatUser {
   font-weight: bold;
+}
+
+#sendMessage {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: none;
 }
 </style>
