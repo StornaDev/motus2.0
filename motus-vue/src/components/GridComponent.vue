@@ -124,7 +124,7 @@ export default {
           proposition[i] == this.word[i].toUpperCase() &&
           niemeOccurence <= nbrOccurence
         ) {
-          columns[i].style.backgroundColor = "#43aa8b";
+          columns[i].style.backgroundColor = "#F24405";
           columns[i].style.color = "white";
           columns[i].style.border = "none";
         } else if (
@@ -132,7 +132,7 @@ export default {
           this.word.toUpperCase().includes(proposition[i]) &&
           niemeOccurence <= nbrOccurence
         ) {
-          columns[i].style.backgroundColor = "#f9c74f";
+          columns[i].style.backgroundColor = "#1F1F1D";
           columns[i].style.color = "white";
           victoire = false;
         } else {
@@ -178,6 +178,8 @@ export default {
 
 .writtenTd {
   border: 5px solid black !important;
+  color: white !important;
+  font-weight: bold;
 }
 
 #container {
@@ -187,20 +189,13 @@ export default {
   font-family: "Montserrat", sans-serif;
 }
 
-#content {
-  margin-top: 20vh;
-}
-
 table {
   border-spacing: 0;
   margin: auto;
   margin-top: 1%;
-  border-style: solid;
-  border-color: white;
   border-spacing: 10px;
-  height: 100%;
-  width: 100%;
 }
+
 td {
   border: 1px solid black;
   padding: 2px;
@@ -210,8 +205,11 @@ td {
   font-family: "Poppins", sans-serif;
   border-style: solid;
   border-color: #ddd;
-  color: black;
-  border-radius: 5px;
+  color: white;
+  border-radius: 999px;
+  background-color: #a9aaa0;
+  font-weight: bold;
+  font-size: 1.3rem;
 }
 
 .btn {

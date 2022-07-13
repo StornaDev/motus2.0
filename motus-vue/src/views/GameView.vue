@@ -1,9 +1,14 @@
 <template>
   <div id="container">
     <div id="content">
+      <h1 class="gameTitle" v-if="gameStarted">AlphaBee</h1>
       <GridComponent v-if="gameStarted" />
-      <h3 v-if="this.$store.state.gameInfos.win">Victoire !</h3>
-      <h2 v-if="this.$store.state.gameInfos.gameEnd">La partie est terminée</h2>
+      <!-- <h3 v-if="this.$store.state.gameInfos.win">Victoire !</h3>
+      <h2 v-if="this.$store.state.gameInfos.gameEnd">La partie est terminée</h2> -->
+      <EndgameModal
+        v-if="this.$store.state.gameInfos.gameEnd"
+        :win="this.$store.state.gameInfos.win"
+      ></EndgameModal>
       <TchatComponent v-if="gameStarted"></TchatComponent>
       <!-- <Grid 
              v-bind:mode="mode"
@@ -19,7 +24,7 @@
 // import Grid from '../components/TableGrid.vue'
 import GridComponent from "../components/GridComponent.vue";
 import TchatComponent from "../components/TchatComponent.vue";
-
+import EndgameModal from "@/components/EndgameModal.vue";
 export default {
   data: function () {
     return {
@@ -29,6 +34,7 @@ export default {
   components: {
     GridComponent,
     TchatComponent,
+    EndgameModal,
   },
 
   mounted() {
@@ -69,6 +75,7 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Molle&family=Pacifico&display=swap");
 
 #container {
   box-sizing: border-box;
@@ -79,6 +86,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: #dbdbd7;
 }
 
 #content {
@@ -86,16 +94,10 @@ export default {
   justify-content: center;
   align-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  margin-top: 13vh;
 }
 
-table {
-  border-spacing: 0;
-  margin: auto;
-  margin-top: 1%;
-  border-style: solid;
-  border-color: white;
-  background-color: #5e83d1;
-}
 td {
   border: 1px solid black;
   padding: 2px;
@@ -131,5 +133,13 @@ td {
 
 .btn:hover {
   background-color: #7593b1;
+}
+
+.gameTitle {
+  font-family: "Pacifico", cursive;
+  font-style: italic;
+  font-weight: 600;
+  width: 100%;
+  font-size: 2.5rem;
 }
 </style>

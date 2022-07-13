@@ -53,7 +53,7 @@ a {
   padding: 20px 10%;
   transition: all 0.3s ease 0s;
   z-index: 3;
-  background-color: #2c3e50;
+  background-color: #1f1f1d;
   position: fixed;
 }
 .navlinks {

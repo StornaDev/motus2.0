@@ -15,7 +15,7 @@
         id=""
         v-model="message"
       />
-      <button id="sendMessage" v-on:click="sendMessage"></button>
+      <button id="sendMessage" v-on:click="sendMessage">Envoyer</button>
     </div>
   </div>
 </template>
@@ -92,8 +92,9 @@ export default {
   width: 25%;
   position: relative;
   height: 555px;
-  background-color: lightblue;
+  background-color: rgb(31, 31, 29);
   border-radius: 10px;
+  color: white;
 }
 
 #tchatMessages {
@@ -105,19 +106,29 @@ export default {
 }
 
 #tchatInput {
+  display: flex;
+  justify-content: center;
   position: absolute;
-  bottom: 0;
+  bottom: 15px;
   width: 100%;
 }
 
 #tchatInput input {
-  height: 25px;
-  width: 100%;
+  width: 90%;
   box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  height: 43px;
+  padding: 5px;
+  font-family: "Montserrat", sans-serif;
+}
+#tchatInput input:focus {
+  outline: none;
 }
 
 .message {
   overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .tchatUser {
@@ -125,9 +136,16 @@ export default {
 }
 
 #sendMessage {
+  cursor: pointer;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 25px;
+  bottom: 4px;
+  /* height: 25px; */
+  border-radius: 5px;
+  /* width: 30px; */
+  padding: 10px;
   border: none;
+  background-color: #f24405;
+  color: white;
 }
 </style>
